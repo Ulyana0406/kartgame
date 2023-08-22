@@ -1,5 +1,5 @@
-import { goToPage,page, setPage } from "./main.js";
-import { EASY_PAGE, HARD_PAGE, MEDIUM_PAGE } from "./modules/routes.js";
+import { goToPage,page, setPage } from "../main.js";
+import { EASY_PAGE, HARD_PAGE, MEDIUM_PAGE } from "../modules/routes.js";
 
 
 export function renderFirstPageComponent(appEl){

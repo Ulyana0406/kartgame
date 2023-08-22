@@ -8,8 +8,9 @@ import {
     MEDIUM_PAGE,
   } from "./modules/routes.js";
 import { renderFirstPageComponent } from "./components/first-page-of-game.js";
-  export let page = FIRST_PAGE;
 
+  export let page = FIRST_PAGE;
+ 
   export let userSettings= {
     time:0,
     gameStatus: null,
@@ -22,7 +23,7 @@ import { renderFirstPageComponent } from "./components/first-page-of-game.js";
 
   export const goToPage= (page)=>{
     if (
-        [EASY_PAGE, FIRST_PAGE, HARD_PAGE, MEDIUM_PAGE, LOADING_PAGE].includes(page)
+        [EASY_PAGE, FIRST_PAGE, HARD_PAGE, MEDIUM_PAGE].includes(page)
       ){
         if (page===FIRST_PAGE){
             userSettings.gameStatus = "choose difficulty level";
@@ -54,7 +55,7 @@ const appEl=document.getElementById ("app");
 if(page===EASY_PAGE){
     return easyGameGeneration (appEl);
 };
-if(pege===MEDIUM_PAGE){
+if(page===MEDIUM_PAGE){
    return mediumGameGeneration(appEl);
 };
 if(page===HARD_PAGE){
