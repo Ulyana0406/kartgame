@@ -6,7 +6,7 @@ import {
     FIRST_PAGE,
     HARD_PAGE,
     MEDIUM_PAGE,
-  } from "./routes.js";
+  } from "./modules/routes.js";
 import { renderFirstPageComponent } from "./components/first-page-of-game.js";
   export let page = FIRST_PAGE;
 
