@@ -1,9 +1,10 @@
 import { goToPage,page, setPage } from "../main.js";
-import { EASY_PAGE, HARD_PAGE, MEDIUM_PAGE } from "../modules/routes.js";
+import { EASY_PAGE, HARD_PAGE, MEDIUM_PAGE} from "../modules/routes.js";
 
 
 export function renderFirstPageComponent(appEl){
     let firstPageHtml=`
+    <div class="choose__complexity__window">
     <div class="choose__complexity prompt__center">
     <h1 class="popup__windox__text">Выбери <br> сложность</h1>
     <section class="radio-toolbar">
@@ -19,6 +20,7 @@ export function renderFirstPageComponent(appEl){
   <button class="play__button" id="startBtn">
     Старт
  </button>
+</div> 
 </div> 
     `;
     appEl.innerHTML=firstPageHtml;
