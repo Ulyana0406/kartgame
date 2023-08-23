@@ -1,6 +1,4 @@
-import {easyGameGeneration} from "./components/easy-game.js"
-import {hardGameGeneration} from "./components/hard-game.js"
-import {mediumGameGeneration} from "./components/medium-game.js"
+import {renderGamePage} from "./components/game-page.js"
 import {
     EASY_PAGE,
     FIRST_PAGE,
@@ -53,13 +51,13 @@ import { renderFirstPageComponent } from "./components/first-page-of-game.js";
   export const renderApp= ()=>{
 const appEl=document.getElementById ("app");
 if(page===EASY_PAGE){
-    return easyGameGeneration (appEl);
+    return renderGamePage("easy", appEl);
 };
 if(page===MEDIUM_PAGE){
-   return mediumGameGeneration(appEl);
+   return renderGamePage("medium", appEl);
 };
 if(page===HARD_PAGE){
-    return hardGameGeneration(appEl);
+    return renderGamePage("hard", appEl);
 };
 if (page === FIRST_PAGE) {
 return renderFirstPageComponent(appEl);
