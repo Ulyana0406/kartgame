@@ -22,7 +22,7 @@
   width: 480px;
   height: 459px;
   border-radius: 12px;
-  background: #C2F5FF;
+  background: #c2f5ff;
   justify-items: center;
 }
 
@@ -52,7 +52,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  color: #FFF;
+  color: #fff;
   text-align: center;
   font-family: StratosSkyeng;
   font-size: 24px;
@@ -71,13 +71,13 @@
 }
 
 .radio-toolbar label {
-  background-color: #FFF;
+  background-color: #fff;
   display: inline-block;
   margin: 8px;
   padding: 24px 42px;
   cursor: pointer;
   border-radius: 10px;
-  color: var(--blue-100, #0080C1);
+  color: var(--blue-100, #0080c1);
   text-align: center;
   font-family: StratosSkyeng;
   font-size: 64px;
@@ -100,4 +100,35 @@
   text-align: center;
   font-size: 40px;
   color: rgb(153, 121, 121);
+}
+
+.playingFieldHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+}
+
+.playingFieldCards {
+  display: grid;
+  grid-template-columns: repeat(9, 95px);
+  row-gap: 15px;
+  -moz-column-gap: 15px;
+       column-gap: 15px;
+  border-radius: 4px;
+  margin-left: 13px;
+}
+
+.time {
+  margin-left: 22px;
+  font-family: StratosSkyeng;
+}
+
+.button {
+  margin-right: 23px;
+}
+
+.center {
+  padding-left: calc(50% - 512px);
+  padding-right: calc(50% - 512px);
 }/*# sourceMappingURL=style.css.map */
