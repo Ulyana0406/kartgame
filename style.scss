@@ -1,5 +1,5 @@
 @font-face {
-    font-family: 'StratosSkyeng';
+    font-family: StratosSkyeng, sans-serif;
     src:
         url('fonts/stratosskyengweb-regular.woff') format('woff'),
         url('fonts/stratosskyengweb-regular.woff2') format('woff2');
@@ -17,8 +17,9 @@
 
 .body {
     background-size: cover;
-    background: var(--blue-120, #004980);
+    background-color: var(--blue-120, #004980);
 }
+
 .choose__complexity {
     display: grid;
     width: 480px;
@@ -33,11 +34,12 @@
     flex-direction: row;
     justify-content: center;
 }
+
 .popup__windox__text {
     margin-top: 52px;
     color: #004980;
     text-align: center;
-    font-family: StratosSkyeng;
+    font-family: StratosSkyeng, sans-serif;
     font-size: 40px;
     font-weight: 400;
     line-height: 48px;
@@ -55,16 +57,18 @@
     align-items: center;
     color: #fff;
     text-align: center;
-    font-family: StratosSkyeng;
+    font-family: StratosSkyeng, sans-serif;
     font-size: 24px;
     font-style: normal;
     font-weight: 400;
     line-height: 32px;
     transition: all 0.3s;
 }
+
 .play__button:hover {
     background-color: #46af12;
 }
+
 .radio-toolbar input[type='radio'] {
     display: none;
 }
@@ -78,16 +82,11 @@
     border-radius: 10px;
     color: var(--blue-100, #0080c1);
     text-align: center;
-    font-family: StratosSkyeng;
+    font-family: StratosSkyeng, sans-serif;
     font-size: 64px;
     font-style: normal;
     font-weight: 400;
     line-height: 72px;
-}
-
-.radio-toolbar input[type='radio']:checked + label {
-    background-color: #d0ffb7;
-    border: none;
 }
 
 .radio-toolbar label:hover {
@@ -95,11 +94,17 @@
     border: none;
 }
 
+.radio-toolbar .radio:checked + label {
+    background-color: #d0ffb7;
+    border: none;
+}
+
 .page__title {
     text-align: center;
     font-size: 40px;
-    color: rgb(153, 121, 121);
+    color: #d0ffb7;
 }
+
 .playingFieldHeader {
     display: flex;
     justify-content: space-between;
@@ -115,9 +120,10 @@
     border-radius: 4px;
     margin-left: 13px;
 }
+
 .time {
     margin-left: 22px;
-    font-family: StratosSkyeng;
+    font-family: StratosSkyeng, sans-serif;
 }
 
 .button {

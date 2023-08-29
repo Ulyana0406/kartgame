@@ -7,7 +7,7 @@ export function renderFirstPageComponent(appEl) {
     <div class="choose__complexity prompt__center">
     <h1 class="popup__windox__text">Выбери <br> сложность</h1>
     <section class="radio-toolbar">
-        <input type="radio" id="easyBtn" name="radios" value="Легкий">
+        <input type="radio" class="radio" id="easyBtn" name="radios" value="Легкий">
     <label for="easyBtn">1</label>
     
     <input type="radio" id="mediumBtn" name="radios" value="Средний">
