@@ -18,9 +18,12 @@
         "eslint-config-prettier": "^9.0.0",
         "eslint-plugin-prettier": "^5.0.0",
         "husky": "^8.0.3",
+        "postcss-less": "^6.0.0",
+        "postcss-scss": "^4.0.7",
         "prettier": "^3.0.2",
         "stylelint": "^15.10.3",
         "stylelint-config-standard": "^34.0.0",
-        "stylelint-prettier": "^4.0.2"
+        "stylelint-prettier": "^4.0.2",
+        "stylelint-scss": "^5.1.0"
     }
 }
