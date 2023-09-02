@@ -1,5 +1,3 @@
-import { userSettings } from '../main.js'
-
 export function renderLevel(difficulty) {
     let numCards = 6
     if (difficulty === 'easy') {
@@ -68,7 +66,7 @@ let a = []
 let score = 0
 console.log('Счет :', score)
 
-export function renderGame(isAct, appEl) {
+export function renderGame(isAct) {
     let cardsHtml = arr
         .map((back) => {
             return `<div id="back" class="back"><img class="playingFieldCard" id="back" data-name="${back}" src="./cards/back.jpg" alt=""></div>`
@@ -79,6 +77,7 @@ export function renderGame(isAct, appEl) {
             return `<div id="back" class="back"><img class="playingFieldCard" id="back" data-name="${back}" src="./cards/${back}.jpg" alt=""></div>`
         })
         .join('')
+    let appElGame = document.getElementById('appGame')
     let gameHtml = `
   <div class="playingField center">
       <div class="playingFieldHeader">
@@ -86,14 +85,14 @@ export function renderGame(isAct, appEl) {
               <h1>00.00</h1>
           </div>
           <div>
-              <button class="button returnButton">Начать заново</button>
+              <button class="play__button returnButton">Начать заново</button>
           </div>
       </div>
       <div class="playingFieldCards">
           ${isAct ? cardsHtml : cardsBackHtml}
       </div>
   </div>`
-    appEl.innerHTML = gameHtml
+    appElGame.innerHTML = gameHtml
 
     const returnButton = document.querySelector('.returnButton')
     returnButton.addEventListener('click', () => {
@@ -136,7 +135,6 @@ export function renderGame(isAct, appEl) {
             '6Clubs',
         ]
         score = 0
-        userSettings()
         renderLevel()
         console.log('Играть заново')
     })
@@ -147,7 +145,7 @@ export function renderGame(isAct, appEl) {
             //playingFieldCard.classList.add("back");
             //playingFieldCard.style.display = "none";
             let card = playingFieldCard.dataset.name
-            playingFieldCard.setAttribute(`../cards/${card}.jpg`)
+            playingFieldCard.setAttribute('src', `../cards/${card}.jpg`)
             console.log(playingFieldCard.dataset.name)
             a.push(card)
             console.log(a)

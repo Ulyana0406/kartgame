@@ -45,9 +45,9 @@ export const goToPage = (page) => {
         }
     }
 }
+let appEl = document.getElementById('app')
 
 export const renderApp = () => {
-    const appEl = document.getElementById('app')
     if (page === EASY_PAGE) {
         return renderLevel('easy')
     }
