@@ -2,10 +2,13 @@ export function renderLevel(difficulty) {
     let numCards = 6
     if (difficulty === 'easy') {
         numCards = 6
+        hideFirstPage()
     } else if (difficulty === 'medium') {
         numCards = 12
+        hideFirstPage()
     } else if (difficulty === 'hard') {
         numCards = 18
+        hideFirstPage()
     }
     console.log('Кол-во карт :', numCards)
 
@@ -67,6 +70,7 @@ let score = 0
 console.log('Счет :', score)
 
 export function renderGame(isAct) {
+    hideFirstPage()
     let cardsHtml = arr
         .map((back) => {
             return `<div id="back" class="back"><img class="playingFieldCard" id="back" data-name="${back}" src="./cards/back.jpg" alt=""></div>`
@@ -166,7 +170,14 @@ export function renderGame(isAct) {
         })
     })
 }
-
+export function showFirstPage() {
+    const loader = document.querySelector('#choose__complexity__window')
+    loader.classList.remove('hidden')
+}
+export function hideFirstPage() {
+    const loader = document.querySelector('#choose__complexity__window')
+    loader.classList.add('hidden')
+}
 // Показать и скрытие карточек через 5 сек в начале игры
 export function int() {
     setTimeout(() => {

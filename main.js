@@ -6,7 +6,7 @@ import {
     MEDIUM_PAGE,
 } from './modules/routes.js'
 import { renderFirstPageComponent } from './components/first-page-of-game.js'
-
+import { hideFirstPage } from './components/game-page.js'
 export let page = FIRST_PAGE
 
 export let userSettings = {
@@ -24,24 +24,28 @@ export const goToPage = (page) => {
         if (page === FIRST_PAGE) {
             userSettings.gameStatus = 'choose difficulty level'
             renderApp()
+            hideFirstPage()
         }
         if (page === EASY_PAGE) {
             userSettings.difficalty = 'easy'
             userSettings.gameStatus = 'in game'
             console.log(userSettings)
             renderApp()
+            hideFirstPage()
         }
         if (page === MEDIUM_PAGE) {
             userSettings.difficalty = 'medium'
             userSettings.gameStatus = 'in game'
             console.log(userSettings)
             renderApp()
+            hideFirstPage()
         }
         if (page === HARD_PAGE) {
             userSettings.difficalty = 'hard'
             userSettings.gameStatus = 'in game'
             console.log(userSettings)
             renderApp()
+            hideFirstPage()
         }
     }
 }
