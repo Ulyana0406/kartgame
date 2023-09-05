@@ -86,7 +86,7 @@ export function renderGame(isAct) {
   <div class="playingField center">
       <div class="playingFieldHeader">
           <div class="time">
-              <h1>00.00</h1>
+              <p class="time">00.00<p>
           </div>
           <div>
               <button class="play__button returnButton">Начать заново</button>
@@ -98,7 +98,7 @@ export function renderGame(isAct) {
   </div>`
     appElGame.innerHTML = gameHtml
 
-    const returnButton = document.querySelector('.returnButton')
+    const returnButton = document.querySelector('.play__button')
     returnButton.addEventListener('click', () => {
         arr = arr = [
             'AceSpades',
@@ -139,15 +139,13 @@ export function renderGame(isAct) {
             '6Clubs',
         ]
         score = 0
-        renderLevel()
+        renderLevel(false)
         console.log('Играть заново')
     })
 
     const playingFieldCard = document.querySelectorAll('.playingFieldCard')
     playingFieldCard.forEach((playingFieldCard) => {
         playingFieldCard.addEventListener('click', () => {
-            //playingFieldCard.classList.add("back");
-            //playingFieldCard.style.display = "none";
             let card = playingFieldCard.dataset.name
             playingFieldCard.setAttribute('src', `../cards/${card}.jpg`)
             console.log(playingFieldCard.dataset.name)
@@ -171,19 +169,19 @@ export function renderGame(isAct) {
     })
 }
 export function showFirstPage() {
-    const loader = document.querySelector('#choose__complexity__window')
+    const loader = document.querySelector('.choose__complexity__window')
     loader.classList.remove('hidden')
 }
 export function hideFirstPage() {
-    const loader = document.querySelector('#choose__complexity__window')
+    const loader = document.querySelector('.choose__complexity__window')
     loader.classList.add('hidden')
 }
 // Показать и скрытие карточек через 5 сек в начале игры
 export function int() {
     setTimeout(() => {
-        renderGame(true)
         console.log('set')
     }, 5000)
+    renderGame(true)
 }
-int()
+
 //document.getElementById("timeData").textContent = "11.11";

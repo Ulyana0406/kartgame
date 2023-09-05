@@ -24,7 +24,6 @@ export const goToPage = (page) => {
         if (page === FIRST_PAGE) {
             userSettings.gameStatus = 'choose difficulty level'
             renderApp()
-            hideFirstPage()
         }
         if (page === EASY_PAGE) {
             userSettings.difficalty = 'easy'

@@ -1,6 +1,5 @@
 import { goToPage, page, setPage } from '../main.js'
 import { EASY_PAGE, HARD_PAGE, MEDIUM_PAGE } from '../modules/routes.js'
-import { renderGame } from './game-page.js'
 import { int } from './game-page.js'
 import { hideFirstPage } from './game-page.js'
 
@@ -46,21 +45,18 @@ export function renderFirstPageComponent(appEl) {
         if (easyBtn.hasAttribute('checked')) {
             setPage(EASY_PAGE)
             goToPage(page)
-            renderGame(false)
             int()
             hideFirstPage()
         }
         if (mediumBtn.hasAttribute('checked')) {
             setPage(MEDIUM_PAGE)
             goToPage(page)
-            renderGame(false)
             int()
             hideFirstPage()
         }
         if (hardBtn.hasAttribute('checked')) {
             setPage(HARD_PAGE)
             goToPage(page)
-            renderGame(false)
             int()
             hideFirstPage()
         }
