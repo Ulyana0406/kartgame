@@ -1,3 +1,4 @@
+import { renderFirstPageComponent } from './first-page-of-game.js'
 export function renderLevel(difficulty) {
     let numCards = 6
     if (difficulty === 'easy') {
@@ -89,7 +90,7 @@ export function renderGame(isAct) {
               <p class="time">00.00<p>
           </div>
           <div>
-              <button class="play__button returnButton">Начать заново</button>
+              <button id="restart" class="play__button returnButton">Начать заново</button>
           </div>
       </div>
       <div class="playingFieldCards">
@@ -98,48 +99,11 @@ export function renderGame(isAct) {
   </div>`
     appElGame.innerHTML = gameHtml
 
-    const returnButton = document.querySelector('.play__button')
+    const returnButton = document.querySelector('#restart')
+
     returnButton.addEventListener('click', () => {
-        arr = arr = [
-            'AceSpades',
-            'KingSpades',
-            'QueenSpades',
-            'JackSpades',
-            '10Spades',
-            '9Spades',
-            '8Spades',
-            '7Spades',
-            '6Spades',
-            'AceHearts',
-            'KingHearts',
-            'QueenHearts',
-            'JackHearts',
-            '10Hearts',
-            '9Hearts',
-            '8Hearts',
-            '7Hearts',
-            '6Hearts',
-            'AceDiamonds',
-            'KingDiamonds',
-            'QueenDiamonds',
-            'JackDiamonds',
-            '10Diamonds',
-            '9Diamonds',
-            '8Diamonds',
-            '7Diamonds',
-            '6Diamonds',
-            'AceClubs',
-            'KingClubs',
-            'QueenClubs',
-            'JackClubs',
-            '10Clubs',
-            '9Clubs',
-            '8Clubs',
-            '7Clubs',
-            '6Clubs',
-        ]
+        renderFirstPageComponent(appElGame)
         score = 0
-        renderLevel(false)
         console.log('Играть заново')
     })
 
@@ -178,10 +142,10 @@ export function hideFirstPage() {
 }
 // Показать и скрытие карточек через 5 сек в начале игры
 export function int() {
+    renderGame(false)
     setTimeout(() => {
-        console.log('set')
+        renderGame(true)
     }, 5000)
-    renderGame(true)
 }
 
 //document.getElementById("timeData").textContent = "11.11";

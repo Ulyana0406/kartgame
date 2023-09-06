@@ -1,3 +1,4 @@
+import './style.scss'
 import { renderLevel } from './components/game-page.js'
 import {
     EASY_PAGE,
