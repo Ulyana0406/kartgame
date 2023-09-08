@@ -1,4 +1,5 @@
-import { renderGamePage } from './components/game-page.js'
+import './style.scss'
+import { renderLevel } from './components/game-page.js'
 import {
     EASY_PAGE,
     FIRST_PAGE,
@@ -6,7 +7,7 @@ import {
     MEDIUM_PAGE,
 } from './modules/routes.js'
 import { renderFirstPageComponent } from './components/first-page-of-game.js'
-
+import { hideFirstPage } from './components/game-page.js'
 export let page = FIRST_PAGE
 
 export let userSettings = {
@@ -30,32 +31,35 @@ export const goToPage = (page) => {
             userSettings.gameStatus = 'in game'
             console.log(userSettings)
             renderApp()
+            hideFirstPage()
         }
         if (page === MEDIUM_PAGE) {
             userSettings.difficalty = 'medium'
             userSettings.gameStatus = 'in game'
             console.log(userSettings)
             renderApp()
+            hideFirstPage()
         }
         if (page === HARD_PAGE) {
             userSettings.difficalty = 'hard'
             userSettings.gameStatus = 'in game'
             console.log(userSettings)
             renderApp()
+            hideFirstPage()
         }
     }
 }
+let appEl = document.getElementById('app')
 
 export const renderApp = () => {
-    const appEl = document.getElementById('app')
     if (page === EASY_PAGE) {
-        return renderGamePage('easy', appEl)
+        return renderLevel('easy')
     }
     if (page === MEDIUM_PAGE) {
-        return renderGamePage('medium', appEl)
+        return renderLevel('medium')
     }
     if (page === HARD_PAGE) {
-        return renderGamePage('hard', appEl)
+        return renderLevel('hard')
     }
     if (page === FIRST_PAGE) {
         return renderFirstPageComponent(appEl)

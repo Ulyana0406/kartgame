@@ -1,9 +1,11 @@
 import { goToPage, page, setPage } from '../main.js'
 import { EASY_PAGE, HARD_PAGE, MEDIUM_PAGE } from '../modules/routes.js'
+import { int } from './game-page.js'
+import { hideFirstPage } from './game-page.js'
 
 export function renderFirstPageComponent(appEl) {
     let firstPageHtml = `
-    <div class="choose__complexity__window">
+    <div id="choose__complexity__window" class="choose__complexity__window">
     <div class="choose__complexity prompt__center">
     <h1 class="popup__windox__text">Выбери <br> сложность</h1>
     <section class="radio-toolbar">
@@ -43,14 +45,20 @@ export function renderFirstPageComponent(appEl) {
         if (easyBtn.hasAttribute('checked')) {
             setPage(EASY_PAGE)
             goToPage(page)
+            int()
+            hideFirstPage()
         }
         if (mediumBtn.hasAttribute('checked')) {
             setPage(MEDIUM_PAGE)
             goToPage(page)
+            int()
+            hideFirstPage()
         }
         if (hardBtn.hasAttribute('checked')) {
             setPage(HARD_PAGE)
             goToPage(page)
+            int()
+            hideFirstPage()
         }
     })
 }

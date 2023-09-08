@@ -1,5 +1,5 @@
 @font-face {
-  font-family: "StratosSkyeng";
+  font-family: StratosSkyeng, sans-serif;
   src: url("fonts/stratosskyengweb-regular.woff") format("woff"), url("fonts/stratosskyengweb-regular.woff2") format("woff2");
 }
 * {
@@ -14,7 +14,7 @@
 
 .body {
   background-size: cover;
-  background: var(--blue-120, #004980);
+  background-color: var(--blue-120, #004980);
 }
 
 .choose__complexity {
@@ -36,7 +36,7 @@
   margin-top: 52px;
   color: #004980;
   text-align: center;
-  font-family: StratosSkyeng;
+  font-family: StratosSkyeng, sans-serif;
   font-size: 40px;
   font-weight: 400;
   line-height: 48px;
@@ -54,7 +54,7 @@
   align-items: center;
   color: #fff;
   text-align: center;
-  font-family: StratosSkyeng;
+  font-family: StratosSkyeng, sans-serif;
   font-size: 24px;
   font-style: normal;
   font-weight: 400;
@@ -79,16 +79,11 @@
   border-radius: 10px;
   color: var(--blue-100, #0080c1);
   text-align: center;
-  font-family: StratosSkyeng;
+  font-family: StratosSkyeng, sans-serif;
   font-size: 64px;
   font-style: normal;
   font-weight: 400;
   line-height: 72px;
-}
-
-.radio-toolbar input[type=radio]:checked + label {
-  background-color: #d0ffb7;
-  border: none;
 }
 
 .radio-toolbar label:hover {
@@ -96,10 +91,19 @@
   border: none;
 }
 
+.radio-toolbar .radio:checked + label {
+  background-color: #d0ffb7;
+  border: none;
+}
+
 .page__title {
   text-align: center;
   font-size: 40px;
-  color: rgb(153, 121, 121);
+  color: #d0ffb7;
+}
+
+.playingField {
+  margin-top: 50px;
 }
 
 .playingFieldHeader {
@@ -120,8 +124,12 @@
 }
 
 .time {
-  margin-left: 22px;
-  font-family: StratosSkyeng;
+  color: #fff;
+  font-family: StratosSkyeng, sans-serif;
+  font-size: 64px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 72px;
 }
 
 .button {
@@ -131,4 +139,8 @@
 .center {
   padding-left: calc(50% - 512px);
   padding-right: calc(50% - 512px);
+}
+
+.hidden {
+  display: none;
 }/*# sourceMappingURL=style.css.map */
