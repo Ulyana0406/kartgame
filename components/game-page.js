@@ -1,5 +1,5 @@
 import { renderFirstPageComponent } from './first-page-of-game.js'
-
+import { userSettings } from '../main.js'
 export function renderLevel(difficulty) {
     let numCards = 6
     if (difficulty === 'easy') {
@@ -160,10 +160,8 @@ export function renderGame(isAct) {
                         compareId.shift()
                     }
 
-                    // Окно результата
-                    // записывать все пары сравнивыемых карт в общий масив, при достижение нужной длинны массива сравнить с уровнем игры и выдать результат, если при сравнение первой пары не было допусщина ошибка
                     console.log('Счет :', score, 'Ход :', step)
-                    if (renderLevel('easy')) {
+                    if (userSettings.difficulty === 'easy') {
                         if (step === 5 || score === 3) {
                             if (score === 3) {
                                 showWin()
@@ -171,7 +169,7 @@ export function renderGame(isAct) {
                                 alert('Вы проиграли')
                             }
                         }
-                    } else if (renderLevel('medium')) {
+                    } else if (userSettings.difficulty === 'medium') {
                         if (step === 8 || score === 6) {
                             if (score === 6) {
                                 showWin()
@@ -179,7 +177,7 @@ export function renderGame(isAct) {
                                 alert('Вы проиграли')
                             }
                         }
-                    } else if (renderLevel('hard')) {
+                    } else if (userSettings.difficulty === 'hard') {
                         if (step === 9 || score === 9) {
                             if (score === 9) {
                                 showWin()
