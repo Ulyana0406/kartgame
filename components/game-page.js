@@ -2,13 +2,19 @@ import { renderFirstPageComponent } from './first-page-of-game.js'
 export function renderLevel(difficulty) {
     let numCards = 6
     if (difficulty === 'easy') {
+        step = 0
         numCards = 6
+        score = 0
         hideFirstPage()
     } else if (difficulty === 'medium') {
         numCards = 12
+        score = 0
+        step = 0
         hideFirstPage()
     } else if (difficulty === 'hard') {
         numCards = 18
+        score = 0
+        step = 0
         hideFirstPage()
     }
     console.log('Кол-во карт :', numCards)
@@ -20,13 +26,16 @@ export function renderLevel(difficulty) {
     arr = arr.slice(0, numCards / 2)
     let arrB = Array.from(arr)
     let arrC = [...arr, ...arrB]
-    arr = arrC
+    let arrD = arrC
         .map((i) => [Math.random(), i])
         .sort()
         .map((i) => i[1])
+    arr = Object.assign({}, arrD)
+    arr = Object.entries(arr)
     console.log(arr)
 }
 
+let step = 0
 let arr = [
     'AceSpades',
     'KingSpades',
@@ -66,7 +75,6 @@ let arr = [
     '6Clubs',
 ]
 
-let a = []
 let score = 0
 console.log('Счет :', score)
 
@@ -75,12 +83,12 @@ export function renderGame(isAct) {
     hideFirstPage()
     let cardsHtml = arr
         .map((back) => {
-            return `<div id="back" class="back"><img class="playingFieldCard" id="back" data-name="${back}" src="./cards/back.jpg" alt=""></div>`
+            return `<div id="${back[0]}" class="back"><img class="playingFieldCard" id="${back[0]}" data-name="${back[1]}" src="./cards/back.jpg" alt=""></div>`
         })
         .join('')
     let cardsBackHtml = arr
         .map((back) => {
-            return `<div id="back" class="back"><img class="playingFieldCard" id="back" data-name="${back}" src="./cards/${back}.jpg" alt=""></div>`
+            return `<div id="${back[0]}" class="back"><img class="playingFieldCard" id="${back[0]}" data-name="${back[1]}" src="./cards/${back[1]}.jpg" alt=""></div>`
         })
         .join('')
     let appElGame = document.getElementById('appGame')
@@ -97,7 +105,8 @@ export function renderGame(isAct) {
       <div class="playingFieldCards">
           ${isAct ? cardsHtml : cardsBackHtml}
       </div>
-  </div>`
+  </div>
+  `
     appElGame.innerHTML = gameHtml
 
     const returnButton = document.querySelector('#restart')
@@ -108,26 +117,68 @@ export function renderGame(isAct) {
         console.log('Играть заново')
     })
 
-    const playingFieldCard = document.querySelectorAll('.playingFieldCard')
-    playingFieldCard.forEach((playingFieldCard) => {
-        playingFieldCard.addEventListener('click', () => {
-            let card = playingFieldCard.dataset.name
-            playingFieldCard.setAttribute('src', `../cards/${card}.jpg`)
-            console.log(playingFieldCard.dataset.name)
-            a.push(card)
-            console.log(a)
-            console.log(a.length)
-
-            if (a.length === 2) {
-                if (a[0] === a[1]) {
-                    score = score + 1
-                    a = []
-                    alert('Вы победили!')
-                    console.log('=', 'Счет :', score, a)
-                } else {
-                    a = []
-                    console.log('!=', 'Счет :', score, a)
-                    alert('Вы проиграли!')
+    const playingFieldCards = document.querySelectorAll('.playingFieldCard')
+    let compareNameId = []
+    let compareId = []
+    playingFieldCards.forEach((playingFieldCard) => {
+        playingFieldCard.addEventListener('click', (event) => {
+            let nameId = event.target.dataset.name
+            let id = event.target.id
+            playingFieldCard.setAttribute('src', `../cards/${nameId}.jpg`)
+            compareId.push(id)
+            compareNameId.push(nameId)
+            if (compareId.length === 2 && compareNameId.length === 2) {
+                if (compareId[0] !== compareId[1]) {
+                    if (compareNameId[0] === compareNameId[1]) {
+                        score = score + 1
+                        step = ++step
+                        compareId = []
+                        compareNameId = []
+                    } else {
+                        step = ++step
+                        setTimeout(() => {
+                            playingFieldCards.forEach((playingFieldCard) => {
+                                playingFieldCard.setAttribute(
+                                    'src',
+                                    '/cards/back.jpg',
+                                )
+                            })
+                            console.log('Очистка')
+                        }, 500)
+                        compareId = []
+                        compareNameId = []
+                    }
+                } else if (compareId[0] === compareId[1]) {
+                    compareNameId.shift()
+                    compareId.shift()
+                }
+                // Окно результата
+                if (renderLevel('easy')) {
+                    if (step === 5 || score === 3) {
+                        if (score === 3) {
+                            showWin()
+                            clearInterval()
+                            alert('Вы победили!')
+                        } else {
+                            alert('Вы проиграли!')
+                        }
+                    }
+                } else if (renderLevel('medium')) {
+                    if (step === 8) {
+                        if (score === 6) {
+                            alert('Вы победили!')
+                        } else {
+                            alert('Вы проиграли!')
+                        }
+                    }
+                } else if (renderLevel('hard')) {
+                    if (step === 9) {
+                        if (score === 9) {
+                            alert('Вы победили!')
+                        } else {
+                            alert('Вы проиграли!')
+                        }
+                    }
                 }
             }
         })
@@ -141,6 +192,17 @@ export function hideFirstPage() {
     const loader = document.querySelector('.choose__complexity__window')
     loader.classList.add('hidden')
 }
+
+export function showWin() {
+    let WinLoseHTMl = ` <div class="winLose">
+    <img class="imgHeader" src="./cards/win.png}" alt="win">
+    <h1 class="headerLow"> 'Вы выиграли!' }</h1>
+    <h3 class="heading">Затраченное время:</h3>
+    <button style= class="button returnButton">Играть снова</button>
+</div>`
+    let gameResult = document.getElementById('gameResult')
+    gameResult.innerHTML = WinLoseHTMl
+}
 // Показать и скрытие карточек через 5 сек в начале игры
 export function int() {
     renderGame(false)
@@ -152,9 +214,8 @@ function startTimer() {
     let minutes = 0
     let seconds = 0
 
-    const timerElement = document.getElementById('timer')
-
     setInterval(() => {
+        const timerElement = document.getElementById('timer')
         seconds++
         if (seconds >= 60) {
             minutes++
@@ -166,7 +227,7 @@ function startTimer() {
         const formattedSeconds = seconds < 10 ? '0' + seconds : seconds
 
         // Выводим время в элемент разметки
-        timerElement.textContent = `${formattedMinutes}:${formattedSeconds}`
+        timerElement.innerHTML = `${formattedMinutes}:${formattedSeconds}`
     }, 1000)
 }
 //document.getElementById("timeData").textContent = "11.11";
