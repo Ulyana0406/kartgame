@@ -146,3 +146,55 @@
 .hidden {
   display: none;
 }
+
+.winLose {
+  position: absolute;
+  z-index: 4;
+  top: 158px;
+  width: 480px;
+  height: auto;
+  border-radius: 12px;
+  background: #c2f5ff;
+  display: flex;
+  flex-flow: column wrap;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+}
+
+.imgHeader {
+  margin-top: 26px;
+  margin-bottom: 9px;
+}
+
+.headerLow {
+  color: #004980;
+  font-family: StratosSkyeng, sans-serif;
+  font-size: 40px;
+  font-weight: 400;
+  line-height: 48px;
+  text-align: center;
+  margin-top: 9px;
+  margin-bottom: 28px;
+}
+
+.heading {
+  font-family: StratosSkyeng, sans-serif;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 32px;
+  text-align: left;
+  color: #000;
+}
+
+.timeHeader {
+  font-family: StratosSkyeng, sans-serif;
+  font-size: 64px;
+  font-weight: 400;
+  line-height: 72px;
+  letter-spacing: 0;
+  text-align: left;
+  color: #000;
+  margin-top: 10px;
+  margin-bottom: 40px;
+}

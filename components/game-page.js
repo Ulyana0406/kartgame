@@ -1,4 +1,5 @@
 import { renderFirstPageComponent } from './first-page-of-game.js'
+
 export function renderLevel(difficulty) {
     let numCards = 6
     if (difficulty === 'easy') {
@@ -122,61 +123,69 @@ export function renderGame(isAct) {
     let compareId = []
     playingFieldCards.forEach((playingFieldCard) => {
         playingFieldCard.addEventListener('click', (event) => {
-            let nameId = event.target.dataset.name
-            let id = event.target.id
-            playingFieldCard.setAttribute('src', `../cards/${nameId}.jpg`)
-            compareId.push(id)
-            compareNameId.push(nameId)
-            if (compareId.length === 2 && compareNameId.length === 2) {
-                if (compareId[0] !== compareId[1]) {
-                    if (compareNameId[0] === compareNameId[1]) {
-                        score = score + 1
-                        step = ++step
-                        compareId = []
-                        compareNameId = []
-                    } else {
-                        step = ++step
-                        setTimeout(() => {
-                            playingFieldCards.forEach((playingFieldCard) => {
-                                playingFieldCard.setAttribute(
-                                    'src',
-                                    '/cards/back.jpg',
+            if (event.target instanceof HTMLElement) {
+                const nameId = event.target.dataset.name || ''
+                const id = event.target.id
+
+                playingFieldCard.setAttribute('src', `/cards/${nameId}.jpg`)
+
+                compareId.push(id)
+                compareNameId.push(nameId)
+
+                if (compareId.length === 2 && compareNameId.length === 2) {
+                    if (compareId[0] !== compareId[1]) {
+                        if (compareNameId[0] === compareNameId[1]) {
+                            score = score + 1
+                            step = ++step
+                            compareId = []
+                            compareNameId = []
+                        } else {
+                            step = ++step
+                            setTimeout(() => {
+                                playingFieldCards.forEach(
+                                    (playingFieldCard) => {
+                                        playingFieldCard.setAttribute(
+                                            'src',
+                                            '/cards/back.jpg',
+                                        )
+                                    },
                                 )
-                            })
-                            console.log('Очистка')
-                        }, 500)
-                        compareId = []
-                        compareNameId = []
-                    }
-                } else if (compareId[0] === compareId[1]) {
-                    compareNameId.shift()
-                    compareId.shift()
-                }
-                // Окно результата
-                if (renderLevel('easy')) {
-                    if (step === 5 || score === 3) {
-                        if (score === 3) {
-                            showWin()
-                            clearInterval()
-                            alert('Вы победили!')
-                        } else {
-                            alert('Вы проиграли!')
+                                console.log('Очистка')
+                            }, 500)
+                            compareId = []
+                            compareNameId = []
                         }
+                    } else if (compareId[0] === compareId[1]) {
+                        compareNameId.shift()
+                        compareId.shift()
                     }
-                } else if (renderLevel('medium')) {
-                    if (step === 8) {
-                        if (score === 6) {
-                            alert('Вы победили!')
-                        } else {
-                            alert('Вы проиграли!')
+
+                    // Окно результата
+                    // записывать все пары сравнивыемых карт в общий масив, при достижение нужной длинны массива сравнить с уровнем игры и выдать результат, если при сравнение первой пары не было допусщина ошибка
+                    console.log('Счет :', score, 'Ход :', step)
+                    if (renderLevel('easy')) {
+                        if (step === 5 || score === 3) {
+                            if (score === 3) {
+                                showWin()
+                            } else if (score <= 3) {
+                                alert('Вы проиграли')
+                            }
                         }
-                    }
-                } else if (renderLevel('hard')) {
-                    if (step === 9) {
-                        if (score === 9) {
-                            alert('Вы победили!')
-                        } else {
-                            alert('Вы проиграли!')
+                    } else if (renderLevel('medium')) {
+                        if (step === 8 || score === 6) {
+                            if (score === 6) {
+                                showWin()
+                            } else {
+                                alert('Вы проиграли')
+                            }
+                        }
+                    } else if (renderLevel('hard')) {
+                        if (step === 9 || score === 9) {
+                            if (score === 9) {
+                                showWin()
+                            } else {
+                                alert('Вы проиграли')
+                            }
                         }
                     }
                 }
@@ -194,11 +203,12 @@ export function hideFirstPage() {
 }
 
 export function showWin() {
+    const timerElement = document.getElementById('timer')
     let WinLoseHTMl = ` <div class="winLose">
-    <img class="imgHeader" src="./cards/win.png}" alt="win">
+    <img class="imgHeader" src="./cards/win.png" alt="win">
     <h1 class="headerLow"> 'Вы выиграли!' }</h1>
     <h3 class="heading">Затраченное время:</h3>
-    <span id="timer"></span>
+    <span id="timer">${timerElement}</span>
     <button style= class="button returnButton">Играть снова</button>
 </div>`
     let gameResult = document.getElementById('gameResult')
