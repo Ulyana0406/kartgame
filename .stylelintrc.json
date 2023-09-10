@@ -4,6 +4,7 @@
     "syntax": "scss",
     "customSyntax": "postcss-less",
     "rules": {
+        "ignorePatterns": ["/dist"],
         "prettier/prettier": null,
         "selector-class-pattern": null,
         "font-family-no-missing-generic-family-keyword": [

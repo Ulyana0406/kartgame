@@ -198,6 +198,7 @@ export function showWin() {
     <img class="imgHeader" src="./cards/win.png}" alt="win">
     <h1 class="headerLow"> 'Вы выиграли!' }</h1>
     <h3 class="heading">Затраченное время:</h3>
+    <span id="timer"></span>
     <button style= class="button returnButton">Играть снова</button>
 </div>`
     let gameResult = document.getElementById('gameResult')
