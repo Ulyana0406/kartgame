@@ -71,6 +71,7 @@ let score = 0
 console.log('Счет :', score)
 
 export function renderGame(isAct) {
+    startTimer()
     hideFirstPage()
     let cardsHtml = arr
         .map((back) => {
@@ -87,7 +88,7 @@ export function renderGame(isAct) {
   <div class="playingField center">
       <div class="playingFieldHeader">
           <div class="time">
-              <p class="time">00.00<p>
+          <span class="time" id="timer">00:00</span>
           </div>
           <div>
               <button id="restart" class="play__button returnButton">Начать заново</button>
@@ -147,5 +148,25 @@ export function int() {
         renderGame(true)
     }, 5000)
 }
+function startTimer() {
+    let minutes = 0
+    let seconds = 0
 
+    const timerElement = document.getElementById('timer')
+
+    setInterval(() => {
+        seconds++
+        if (seconds >= 60) {
+            minutes++
+            seconds = 0
+        }
+
+        // Форматируем время для вывода
+        const formattedMinutes = minutes < 10 ? '0' + minutes : minutes
+        const formattedSeconds = seconds < 10 ? '0' + seconds : seconds
+
+        // Выводим время в элемент разметки
+        timerElement.textContent = `${formattedMinutes}:${formattedSeconds}`
+    }, 1000)
+}
 //document.getElementById("timeData").textContent = "11.11";
