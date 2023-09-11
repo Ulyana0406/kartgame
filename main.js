@@ -13,7 +13,7 @@ export let page = FIRST_PAGE
 export let userSettings = {
     time: 0,
     gameStatus: null,
-    difficalty: null,
+    difficulty: null,
 }
 
 export const setPage = (newPage) => {
@@ -27,21 +27,21 @@ export const goToPage = (page) => {
             renderApp()
         }
         if (page === EASY_PAGE) {
-            userSettings.difficalty = 'easy'
+            userSettings.difficulty = 'easy'
             userSettings.gameStatus = 'in game'
             console.log(userSettings)
             renderApp()
             hideFirstPage()
         }
         if (page === MEDIUM_PAGE) {
-            userSettings.difficalty = 'medium'
+            userSettings.difficulty = 'medium'
             userSettings.gameStatus = 'in game'
             console.log(userSettings)
             renderApp()
             hideFirstPage()
         }
         if (page === HARD_PAGE) {
-            userSettings.difficalty = 'hard'
+            userSettings.difficulty = 'hard'
             userSettings.gameStatus = 'in game'
             console.log(userSettings)
             renderApp()

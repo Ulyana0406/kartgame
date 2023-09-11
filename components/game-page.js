@@ -165,16 +165,20 @@ export function renderGame(isAct) {
                         if (step === 5 || score === 3) {
                             if (score === 3) {
                                 showWin()
+                                stopTimer()
                             } else if (score <= 3) {
                                 alert('Вы проиграли')
+                                stopTimer()
                             }
                         }
                     } else if (userSettings.difficulty === 'medium') {
                         if (step === 8 || score === 6) {
                             if (score === 6) {
                                 showWin()
+                                stopTimer()
                             } else {
                                 alert('Вы проиграли')
+                                stopTimer()
                             }
                         }
                     } else if (userSettings.difficulty === 'hard') {
@@ -202,15 +206,17 @@ export function hideFirstPage() {
 
 export function showWin() {
     const timerElement = document.getElementById('timer')
-    let WinLoseHTMl = ` <div class="winLose">
+    let WinHTMl = `<div class="choose__complexity__window">
+     <div class="winLose">
     <img class="imgHeader" src="./cards/win.png" alt="win">
-    <h1 class="headerLow"> 'Вы выиграли!' }</h1>
+    <h1 class="headerLow"> Вы выиграли!</h1>
     <h3 class="heading">Затраченное время:</h3>
     <span id="timer">${timerElement}</span>
-    <button style= class="button returnButton">Играть снова</button>
+    <button class="play__button">Играть снова</button>
+</div>
 </div>`
     let gameResult = document.getElementById('gameResult')
-    gameResult.innerHTML = WinLoseHTMl
+    gameResult.innerHTML = WinHTMl
 }
 // Показать и скрытие карточек через 5 сек в начале игры
 export function int() {
@@ -219,11 +225,11 @@ export function int() {
         renderGame(true)
     }, 5000)
 }
+let minutes = 0
+let seconds = 0
+let interval = 0
 function startTimer() {
-    let minutes = 0
-    let seconds = 0
-
-    setInterval(() => {
+    interval = setInterval(() => {
         const timerElement = document.getElementById('timer')
         seconds++
         if (seconds >= 60) {
@@ -238,5 +244,10 @@ function startTimer() {
         // Выводим время в элемент разметки
         timerElement.innerHTML = `${formattedMinutes}:${formattedSeconds}`
     }, 1000)
+}
+function stopTimer() {
+    clearInterval(interval)
+    seconds = 0
+    minutes = 0
 }
 //document.getElementById("timeData").textContent = "11.11";
