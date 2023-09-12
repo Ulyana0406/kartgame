@@ -80,7 +80,6 @@ let score = 0
 console.log('Счет :', score)
 
 export function renderGame(isAct) {
-    startTimer()
     hideFirstPage()
     let cardsHtml = arr
         .map((back) => {
@@ -93,6 +92,7 @@ export function renderGame(isAct) {
         })
         .join('')
     let appElGame = document.getElementById('appGame')
+
     let gameHtml = `
   <div class="playingField center">
       <div class="playingFieldHeader">
@@ -167,8 +167,8 @@ export function renderGame(isAct) {
                                 showWin()
                                 stopTimer()
                             } else if (score <= 3) {
-                                alert('Вы проиграли')
                                 stopTimer()
+                                showLose()
                             }
                         }
                     } else if (userSettings.difficulty === 'medium') {
@@ -177,7 +177,7 @@ export function renderGame(isAct) {
                                 showWin()
                                 stopTimer()
                             } else {
-                                alert('Вы проиграли')
+                                showLose()
                                 stopTimer()
                             }
                         }
@@ -185,8 +185,10 @@ export function renderGame(isAct) {
                         if (step === 9 || score === 9) {
                             if (score === 9) {
                                 showWin()
+                                stopTimer()
                             } else {
-                                alert('Вы проиграли')
+                                showLose()
+                                stopTimer()
                             }
                         }
                     }
@@ -211,8 +213,23 @@ export function showWin() {
     <img class="imgHeader" src="./cards/win.png" alt="win">
     <h1 class="headerLow"> Вы выиграли!</h1>
     <h3 class="heading">Затраченное время:</h3>
-    <span id="timer">${timerElement}</span>
-    <button class="play__button">Играть снова</button>
+    <span class="timer" id="timer">${timerElement.textContent}</span>
+    <button class="play__button returnButton">Играть снова</button>
+</div>
+</div>`
+    let gameResult = document.getElementById('gameResult')
+    gameResult.innerHTML = WinHTMl
+}
+
+export function showLose() {
+    const timerElement = document.getElementById('timer')
+    let WinHTMl = `<div class="choose__complexity__window">
+     <div class="winLose">
+    <img class="imgHeader" src="./cards/lose.png" alt="win">
+    <h1 class="headerLow"> Вы проиграли!</h1>
+    <h3 class="heading">Затраченное время:</h3>
+    <span class="timer" id="timer">${timerElement.textContent}</span>
+    <button class="play__button returnButton">Играть снова</button>
 </div>
 </div>`
     let gameResult = document.getElementById('gameResult')
@@ -223,6 +240,7 @@ export function int() {
     renderGame(false)
     setTimeout(() => {
         renderGame(true)
+        startTimer()
     }, 5000)
 }
 let minutes = 0
@@ -242,7 +260,7 @@ function startTimer() {
         const formattedSeconds = seconds < 10 ? '0' + seconds : seconds
 
         // Выводим время в элемент разметки
-        timerElement.innerHTML = `${formattedMinutes}:${formattedSeconds}`
+        timerElement.textContent = `${formattedMinutes}:${formattedSeconds}`
     }, 1000)
 }
 function stopTimer() {
