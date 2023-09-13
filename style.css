@@ -133,7 +133,6 @@
 }
 
 .returnButton {
-  margin-right: 23px;
   border: none;
   border-radius: 10px;
   background-color: #7ac100;
@@ -215,4 +214,12 @@
   font-style: normal;
   font-weight: 400;
   line-height: 72px;
+}
+
+.WinLoseWindow {
+  position: absolute;
+  z-index: 2;
+  background-image: url("./cards/backg.png");
+  width: 100vw;
+  height: 100vh;
 }/*# sourceMappingURL=style.css.map */

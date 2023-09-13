@@ -116,6 +116,7 @@ export function renderGame(isAct) {
         renderFirstPageComponent(appElGame)
         score = 0
         console.log('Играть заново')
+        hidegameResult()
     })
 
     const playingFieldCards = document.querySelectorAll('.playingFieldCard')
@@ -197,6 +198,7 @@ export function renderGame(isAct) {
         })
     })
 }
+
 export function showFirstPage() {
     const loader = document.querySelector('.choose__complexity__window')
     loader.classList.remove('hidden')
@@ -208,17 +210,26 @@ export function hideFirstPage() {
 
 export function showWin() {
     const timerElement = document.getElementById('timer')
-    let WinHTMl = `<div class="choose__complexity__window">
+    let WinHTMl = ` 
+    <div class="choose__complexity__window">
      <div class="winLose">
     <img class="imgHeader" src="./cards/win.png" alt="win">
     <h1 class="headerLow"> Вы выиграли!</h1>
     <h3 class="heading">Затраченное время:</h3>
     <span class="timer" id="timer">${timerElement.textContent}</span>
-    <button class="play__button returnButton">Играть снова</button>
+    <button id="restart" class="play__button returnButton">Играть снова</button> 
 </div>
 </div>`
     let gameResult = document.getElementById('gameResult')
     gameResult.innerHTML = WinHTMl
+    const returnButton = document.querySelector('#restart')
+    let appElGame = document.getElementById('appGame')
+    returnButton.addEventListener('click', () => {
+        renderFirstPageComponent(appElGame)
+        score = 0
+        console.log('Играть заново')
+        hidegameResult()
+    })
 }
 
 export function showLose() {
@@ -229,11 +240,16 @@ export function showLose() {
     <h1 class="headerLow"> Вы проиграли!</h1>
     <h3 class="heading">Затраченное время:</h3>
     <span class="timer" id="timer">${timerElement.textContent}</span>
-    <button class="play__button returnButton">Играть снова</button>
+    <button id="restart" class="play__button returnButton">Играть снова</button>
 </div>
 </div>`
     let gameResult = document.getElementById('gameResult')
     gameResult.innerHTML = WinHTMl
+}
+
+export function hidegameResult() {
+    const hidegameResult = document.getElementById('gameResult')
+    hidegameResult.classList.add('hidden')
 }
 // Показать и скрытие карточек через 5 сек в начале игры
 export function int() {
