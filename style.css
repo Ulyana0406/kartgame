@@ -220,6 +220,5 @@
   position: absolute;
   z-index: 2;
   background-image: url("./cards/backg.png");
-  width: 100vw;
-  height: 100vh;
+  background-size: cover;
 }/*# sourceMappingURL=style.css.map */

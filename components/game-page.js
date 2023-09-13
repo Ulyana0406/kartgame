@@ -210,7 +210,7 @@ export function hideFirstPage() {
 
 export function showWin() {
     const timerElement = document.getElementById('timer')
-    let WinHTMl = ` 
+    let WinHTMl = ` <div class="WinLoseWindow"></div>
     <div class="choose__complexity__window">
      <div class="winLose">
     <img class="imgHeader" src="./cards/win.png" alt="win">
@@ -245,6 +245,14 @@ export function showLose() {
 </div>`
     let gameResult = document.getElementById('gameResult')
     gameResult.innerHTML = WinHTMl
+    const returnButton = document.querySelector('#restart')
+    let appElGame = document.getElementById('appGame')
+    returnButton.addEventListener('click', () => {
+        renderFirstPageComponent(appElGame)
+        score = 0
+        console.log('Играть заново')
+        hidegameResult()
+    })
 }
 
 export function hidegameResult() {
