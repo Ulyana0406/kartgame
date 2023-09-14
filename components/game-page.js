@@ -211,20 +211,20 @@ export function hideFirstPage() {
 export function showWin() {
     const timerElement = document.getElementById('timer')
     let WinHTMl = ` <div class="WinLoseWindow"></div>
-    <div class="choose__complexity__window">
+    <div class="winOrLose">
      <div class="winLose">
     <img class="imgHeader" src="./cards/win.png" alt="win">
     <h1 class="headerLow"> Вы выиграли!</h1>
     <h3 class="heading">Затраченное время:</h3>
     <span class="timer" id="timer">${timerElement.textContent}</span>
-    <button id="restart" class="play__button returnButton">Играть снова</button> 
+    <button id="firstpage" class="play__button returnButton">Играть снова</button> 
 </div>
 </div>`
     let gameResult = document.getElementById('gameResult')
     gameResult.innerHTML = WinHTMl
-    const returnButton = document.querySelector('#restart')
+    const returnButtonAftergame = document.querySelector('#firstpage')
     let appElGame = document.getElementById('appGame')
-    returnButton.addEventListener('click', () => {
+    returnButtonAftergame.addEventListener('click', () => {
         renderFirstPageComponent(appElGame)
         score = 0
         console.log('Играть заново')
@@ -234,20 +234,20 @@ export function showWin() {
 
 export function showLose() {
     const timerElement = document.getElementById('timer')
-    let WinHTMl = `<div class="choose__complexity__window">
+    let WinHTMl = `<div class="winOrLose">
      <div class="winLose">
     <img class="imgHeader" src="./cards/lose.png" alt="win">
     <h1 class="headerLow"> Вы проиграли!</h1>
     <h3 class="heading">Затраченное время:</h3>
     <span class="timer" id="timer">${timerElement.textContent}</span>
-    <button id="restart" class="play__button returnButton">Играть снова</button>
+    <button id="firstpage" class="play__button returnButton">Играть снова</button>
 </div>
 </div>`
     let gameResult = document.getElementById('gameResult')
     gameResult.innerHTML = WinHTMl
-    const returnButton = document.querySelector('#restart')
+    const returnButtonAftergame = document.querySelector('#firstpage')
     let appElGame = document.getElementById('appGame')
-    returnButton.addEventListener('click', () => {
+    returnButtonAftergame.addEventListener('click', () => {
         renderFirstPageComponent(appElGame)
         score = 0
         console.log('Играть заново')
