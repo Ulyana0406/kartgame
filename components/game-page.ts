@@ -20,7 +20,7 @@ export function renderLevel(difficulty) {
     }
     console.log('Кол-во карт :', numCards)
 
-    arr = arr
+    arr: number[] = arr
         .map((i) => [Math.random(), i])
         .sort()
         .map((i) => i[1])
@@ -37,7 +37,7 @@ export function renderLevel(difficulty) {
 }
 
 let step = 0
-let arr = [
+let arr: string[] = [
     'AceSpades',
     'KingSpades',
     'QueenSpades',
@@ -91,7 +91,7 @@ export function renderGame(isAct) {
             return `<div id="${back[0]}" class="back"><img class="playingFieldCard" id="${back[0]}" data-name="${back[1]}" src="./cards/${back[1]}.jpg" alt=""></div>`
         })
         .join('')
-    let appElGame = document.getElementById('appGame')
+    let appElGame = document.getElementById('appGame') as HTMLElement
 
     let gameHtml = `
   <div class="playingField center">
@@ -110,7 +110,7 @@ export function renderGame(isAct) {
   `
     appElGame.innerHTML = gameHtml
 
-    const returnButton = document.querySelector('#restart')
+    const returnButton = document.querySelector('#restart') as Element
 
     returnButton.addEventListener('click', () => {
         renderFirstPageComponent(appElGame)
@@ -126,7 +126,7 @@ export function renderGame(isAct) {
         playingFieldCard.addEventListener('click', (event) => {
             if (event.target instanceof HTMLElement) {
                 const nameId = event.target.dataset.name || ''
-                const id = event.target.id
+                const id: string = event.target.id
 
                 playingFieldCard.setAttribute('src', `/cards/${nameId}.jpg`)
 
@@ -200,16 +200,20 @@ export function renderGame(isAct) {
 }
 
 export function showFirstPage() {
-    const loader = document.querySelector('.choose__complexity__window')
+    const loader = document.querySelector(
+        '.choose__complexity__window',
+    ) as Element
     loader.classList.remove('hidden')
 }
 export function hideFirstPage() {
-    const loader = document.querySelector('.choose__complexity__window')
+    const loader = document.querySelector(
+        '.choose__complexity__window',
+    ) as Element
     loader.classList.add('hidden')
 }
 
 export function showWin() {
-    const timerElement = document.getElementById('timer')
+    const timerElement = document.getElementById('timer') as HTMLElement
     let WinHTMl = ` <div class="WinLoseWindow"></div>
     <div class="winOrLose">
      <div class="winLose">
@@ -220,9 +224,11 @@ export function showWin() {
     <button id="firstpage" class="play__button returnButton">Играть снова</button> 
 </div>
 </div>`
-    let gameResult = document.getElementById('gameResult')
+    let gameResult = document.getElementById('gameResult') as HTMLElement
     gameResult.innerHTML = WinHTMl
-    const returnButtonAftergame = document.querySelector('#firstpage')
+    const returnButtonAftergame = document.querySelector(
+        '#firstpage',
+    ) as Element
     let appElGame = document.getElementById('appGame')
     returnButtonAftergame.addEventListener('click', () => {
         renderFirstPageComponent(appElGame)
@@ -233,7 +239,7 @@ export function showWin() {
 }
 
 export function showLose() {
-    const timerElement = document.getElementById('timer')
+    const timerElement = document.getElementById('timer') as HTMLElement
     let WinHTMl = `<div class="winOrLose">
      <div class="winLose">
     <img class="imgHeader" src="./cards/lose.png" alt="win">
@@ -243,9 +249,11 @@ export function showLose() {
     <button id="firstpage" class="play__button returnButton">Играть снова</button>
 </div>
 </div>`
-    let gameResult = document.getElementById('gameResult')
+    let gameResult = document.getElementById('gameResult') as HTMLElement
     gameResult.innerHTML = WinHTMl
-    const returnButtonAftergame = document.querySelector('#firstpage')
+    const returnButtonAftergame = document.querySelector(
+        '#firstpage',
+    ) as Element
     let appElGame = document.getElementById('appGame')
     returnButtonAftergame.addEventListener('click', () => {
         renderFirstPageComponent(appElGame)
@@ -256,7 +264,7 @@ export function showLose() {
 }
 
 export function hidegameResult() {
-    const hidegameResult = document.getElementById('gameResult')
+    const hidegameResult = document.getElementById('gameResult') as HTMLElement
     hidegameResult.classList.add('hidden')
 }
 // Показать и скрытие карточек через 5 сек в начале игры
@@ -271,8 +279,8 @@ let minutes = 0
 let seconds = 0
 let interval = 0
 function startTimer() {
-    interval = setInterval(() => {
-        const timerElement = document.getElementById('timer')
+    number = setInterval(() => {
+        const timerElement = document.getElementById('timer') as HTMLElement
         seconds++
         if (seconds >= 60) {
             minutes++

@@ -12,8 +12,8 @@ export let page = FIRST_PAGE
 
 export let userSettings = {
     time: 0,
-    gameStatus: null,
-    difficulty: null,
+    gameStatus: 'in game',
+    difficulty: 'easy',
 }
 
 export const setPage = (newPage) => {

@@ -27,6 +27,11 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.ts$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            },
+            {
                 test: /\.s[ac]ss$/i,
                 use: [
                     MiniCssExtractPlugin.loader,
@@ -46,5 +51,8 @@ module.exports = {
                 type: 'asset/resource',
             },
         ],
+    },
+    resolve: {
+        extensions: ['.ts', '.js'],
     },
 }

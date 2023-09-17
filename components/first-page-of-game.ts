@@ -26,10 +26,10 @@ export function renderFirstPageComponent(appEl) {
     `
     appEl.innerHTML = firstPageHtml
 
-    const easyBtn = document.getElementById('easyBtn')
-    const mediumBtn = document.getElementById('mediumBtn')
-    const hardBtn = document.getElementById('hardBtn')
-    const startBtn = document.getElementById('startBtn')
+    const easyBtn = document.getElementById('easyBtn') as HTMLElement
+    const mediumBtn = document.getElementById('mediumBtn') as HTMLElement
+    const hardBtn = document.getElementById('hardBtn') as HTMLElement
+    const startBtn = document.getElementById('startBtn') as HTMLElement
     const btnCollection = [easyBtn, mediumBtn, hardBtn]
 
     btnCollection.forEach((el) => {
