@@ -1,13 +1,13 @@
 import './style.scss'
-import { renderLevel } from './components/game-page.js'
+import { renderLevel } from 'c:/kartgame/components/game-page'
 import {
     EASY_PAGE,
     FIRST_PAGE,
     HARD_PAGE,
     MEDIUM_PAGE,
-} from './modules/routes.js'
-import { renderFirstPageComponent } from './components/first-page-of-game.js'
-import { hideFirstPage } from './components/game-page.js'
+} from 'c:/kartgame/modules/routes'
+import { renderFirstPageComponent } from 'c:/kartgame/components/first-page-of-game'
+import { hideFirstPage } from 'c:/kartgame/components/game-page'
 export let page = FIRST_PAGE
 
 export let userSettings = {
@@ -16,11 +16,11 @@ export let userSettings = {
     difficulty: 'easy',
 }
 
-export const setPage = (newPage) => {
+export const setPage = (newPage: string) => {
     page = newPage
 }
 
-export const goToPage = (page) => {
+export const goToPage = (page: string) => {
     if ([EASY_PAGE, FIRST_PAGE, HARD_PAGE, MEDIUM_PAGE].includes(page)) {
         if (page === FIRST_PAGE) {
             userSettings.gameStatus = 'choose difficulty level'
@@ -49,7 +49,7 @@ export const goToPage = (page) => {
         }
     }
 }
-let appEl = document.getElementById('app')
+let appEl = document.getElementById('app') as HTMLElement
 
 export const renderApp = () => {
     if (page === EASY_PAGE) {

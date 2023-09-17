@@ -1,7 +1,8 @@
-import { renderFirstPageComponent } from './first-page-of-game.js'
-import { userSettings } from '../main.js'
-export function renderLevel(difficulty) {
+import { renderFirstPageComponent } from 'c:/kartgame/components/first-page-of-game'
+import { userSettings } from 'c:/kartgame/main'
+export function renderLevel(difficulty: string) {
     let numCards = 6
+
     if (difficulty === 'easy') {
         step = 0
         numCards = 6
@@ -18,21 +19,32 @@ export function renderLevel(difficulty) {
         step = 0
         hideFirstPage()
     }
+
     console.log('Кол-во карт :', numCards)
 
-    arr: number[] = arr
+    let arr: number[] = Array.from(
+        { length: numCards },
+        (_, index) => index + 1,
+    )
+    arr = arr
         .map((i) => [Math.random(), i])
-        .sort()
+        .sort((a, b) => a[0] - b[0])
         .map((i) => i[1])
-    arr = arr.slice(0, numCards / 2)
+        .slice(0, numCards / 2)
+
     let arrB = Array.from(arr)
     let arrC = [...arr, ...arrB]
     let arrD = arrC
         .map((i) => [Math.random(), i])
-        .sort()
+        .sort((a, b) => a[0] - b[0])
         .map((i) => i[1])
-    arr = Object.assign({}, arrD)
-    arr = Object.entries(arr)
+        .reduce((acc: { [key: string]: any }, val: any) => {
+            acc[val.toString()] = val
+            return acc
+        }, {})
+
+    arr = Object.values(arrD) as number[]
+
     console.log(arr)
 }
 
@@ -79,7 +91,7 @@ let arr: string[] = [
 let score = 0
 console.log('Счет :', score)
 
-export function renderGame(isAct) {
+export function renderGame(isAct: boolean) {
     hideFirstPage()
     let cardsHtml = arr
         .map((back) => {
@@ -120,13 +132,13 @@ export function renderGame(isAct) {
     })
 
     const playingFieldCards = document.querySelectorAll('.playingFieldCard')
-    let compareNameId = []
-    let compareId = []
+    let compareNameId: string[] = []
+    let compareId: string[] = []
     playingFieldCards.forEach((playingFieldCard) => {
         playingFieldCard.addEventListener('click', (event) => {
             if (event.target instanceof HTMLElement) {
                 const nameId = event.target.dataset.name || ''
-                const id: string = event.target.id
+                const id = event.target.id
 
                 playingFieldCard.setAttribute('src', `/cards/${nameId}.jpg`)
 
@@ -229,7 +241,7 @@ export function showWin() {
     const returnButtonAftergame = document.querySelector(
         '#firstpage',
     ) as Element
-    let appElGame = document.getElementById('appGame')
+    let appElGame = document.getElementById('appGame') as HTMLElement
     returnButtonAftergame.addEventListener('click', () => {
         renderFirstPageComponent(appElGame)
         score = 0
@@ -254,7 +266,7 @@ export function showLose() {
     const returnButtonAftergame = document.querySelector(
         '#firstpage',
     ) as Element
-    let appElGame = document.getElementById('appGame')
+    let appElGame = document.getElementById('appGame') as HTMLElement
     returnButtonAftergame.addEventListener('click', () => {
         renderFirstPageComponent(appElGame)
         score = 0
@@ -279,7 +291,7 @@ let minutes = 0
 let seconds = 0
 let interval = 0
 function startTimer() {
-    number = setInterval(() => {
+    let number: NodeJS.Timeout = setInterval(() => {
         const timerElement = document.getElementById('timer') as HTMLElement
         seconds++
         if (seconds >= 60) {

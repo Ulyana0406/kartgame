@@ -1,9 +1,9 @@
-import { goToPage, page, setPage } from '../main.js'
-import { EASY_PAGE, HARD_PAGE, MEDIUM_PAGE } from '../modules/routes.js'
-import { int } from './game-page.js'
-import { hideFirstPage } from './game-page.js'
+import { goToPage, page, setPage } from 'c:/kartgame/main'
+import { EASY_PAGE, HARD_PAGE, MEDIUM_PAGE } from 'c:/kartgame/modules/routes'
+import { int } from 'c:/kartgame/components/game-page'
+import { hideFirstPage } from 'c:/kartgame/components/game-page'
 
-export function renderFirstPageComponent(appEl) {
+export function renderFirstPageComponent(appEl: HTMLElement) {
     let firstPageHtml = `
     <div id="choose__complexity__window" class="choose__complexity__window">
     <div class="choose__complexity prompt__center">
