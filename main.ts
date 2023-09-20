@@ -5,7 +5,7 @@ import { renderFirstPageComponent } from './components/first-page-of-game'
 import { hideFirstPage } from './components/game-page'
 export let page = FIRST_PAGE
 
-export let userSettings = {
+export const userSettings = {
     time: 0,
     gameStatus: 'in game',
     difficulty: 'easy',
@@ -44,7 +44,7 @@ export const goToPage = (page: string) => {
         }
     }
 }
-let appEl = document.getElementById('app') as HTMLElement
+const appEl = document.getElementById('app') as HTMLElement
 
 export const renderApp = () => {
     if (page === EASY_PAGE) {
