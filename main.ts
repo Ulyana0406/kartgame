@@ -1,13 +1,8 @@
 import './style.scss'
-import { renderLevel } from 'c:/kartgame/components/game-page'
-import {
-    EASY_PAGE,
-    FIRST_PAGE,
-    HARD_PAGE,
-    MEDIUM_PAGE,
-} from 'c:/kartgame/modules/routes'
-import { renderFirstPageComponent } from 'c:/kartgame/components/first-page-of-game'
-import { hideFirstPage } from 'c:/kartgame/components/game-page'
+import { renderLevel } from './components/game-page'
+import { EASY_PAGE, FIRST_PAGE, HARD_PAGE, MEDIUM_PAGE } from './modules/routes'
+import { renderFirstPageComponent } from './components/first-page-of-game'
+import { hideFirstPage } from './components/game-page'
 export let page = FIRST_PAGE
 
 export let userSettings = {

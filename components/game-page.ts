@@ -1,5 +1,5 @@
-import { renderFirstPageComponent } from 'c:/kartgame/components/first-page-of-game'
-import { userSettings } from 'c:/kartgame/main'
+import { renderFirstPageComponent } from '../components/first-page-of-game'
+import { userSettings } from '../main'
 export function renderLevel(difficulty: string) {
     let numCards = 6
 

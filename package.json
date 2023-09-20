@@ -2,14 +2,14 @@
     "name": "kartgame",
     "version": "1.0.0",
     "description": "",
-    "main": "main.js",
+    "main": "main.ts",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "format": "prettier --write",
         "lint:js": "eslint main.ts",
         "lint:scss": "stylelint style.scss",
         "prepare": "husky install",
-        "lint": "npm run lint:ts && npm run lint:scss",
+        "lint": "npm run lint:js && npm run lint:scss",
         "build": "webpack",
         "start": "webpack-dev-server --open",
         "lint:ts": "tsc --noEmit"

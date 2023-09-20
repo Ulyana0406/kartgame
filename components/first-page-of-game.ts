@@ -1,7 +1,7 @@
-import { goToPage, page, setPage } from 'c:/kartgame/main'
-import { EASY_PAGE, HARD_PAGE, MEDIUM_PAGE } from 'c:/kartgame/modules/routes'
-import { int } from 'c:/kartgame/components/game-page'
-import { hideFirstPage } from 'c:/kartgame/components/game-page'
+import { goToPage, page, setPage } from '../main'
+import { EASY_PAGE, HARD_PAGE, MEDIUM_PAGE } from '../modules/routes'
+import { int } from '../components/game-page'
+import { hideFirstPage } from '../components/game-page'
 
 export function renderFirstPageComponent(appEl: HTMLElement) {
     let firstPageHtml = `
