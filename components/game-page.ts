@@ -38,8 +38,9 @@ let arr: string[] = [
     '7Clubs',
     '6Clubs',
 ]
+let arr2: (string | number)[][] = []
 export function renderLevel(difficulty: string) {
-    let numCards = 6
+    let numCards = 0
     if (difficulty === 'easy') {
         step = 0
         numCards = 6
@@ -58,16 +59,16 @@ export function renderLevel(difficulty: string) {
     }
     console.log('Кол-во карт :', numCards)
 
-    arr.sort(() => Math.random() - 0.5)
+    arr.sort(() => Math.random() - 1)
     arr = arr.slice(0, numCards)
     arr.forEach((el) => arr.push(el))
-    arr.sort(() => Math.random() - 0.5)
+    arr.sort(() => Math.random() - 1)
     arr2 = arr.map((element, index) => {
         return [index, element]
     })
     console.log('массив пар', arr2)
 }
-let arr2: (string | number)[][] = []
+
 let step = 0
 
 let score = 0
@@ -77,12 +78,12 @@ export function renderGame(isAct: boolean) {
     hideFirstPage()
     const cardsHtml = arr
         .map((back) => {
-            return `<div id="${back[0]}" class="back"><img class="playingFieldCard" id="${back[0]}" data-name="${back[1]}" src="./cards/back.jpg" alt=""></div>`
+            return `<div id="${back}" class="back"><img class="playingFieldCard" id="${back}" data-name="${back}" src="./cards/back.jpg" alt=""></div>`
         })
         .join('')
     const cardsBackHtml = arr
         .map((back) => {
-            return `<div id="${back[0]}" class="back"><img class="playingFieldCard" id="${back[0]}" data-name="${back[1]}" src="./cards/${back}.jpg" alt=""></div>`
+            return `<div id="${back}" class="back"><img class="playingFieldCard" id="${back}" data-name="${back}" src="./cards/${back}.jpg" alt=""></div>`
         })
         .join('')
     const appElGame = document.getElementById('appGame') as HTMLElement
@@ -273,7 +274,7 @@ let minutes = 0
 let seconds = 0
 const interval = 0
 function startTimer() {
-    setInterval(() => {
+    const number: NodeJS.Timeout = setInterval(() => {
         const timerElement = document.getElementById('timer') as HTMLElement
         seconds++
         if (seconds >= 60) {
@@ -288,6 +289,7 @@ function startTimer() {
         // Выводим время в элемент разметки
         timerElement.textContent = `${formattedMinutes}:${formattedSeconds}`
     }, 1000)
+    console.log(number)
 }
 function stopTimer() {
     clearInterval(interval)
