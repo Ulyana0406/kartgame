@@ -1,54 +1,5 @@
 import { renderFirstPageComponent } from '../components/first-page-of-game'
 import { userSettings } from '../main'
-export function renderLevel(difficulty: string) {
-    let numCards = 6
-
-    if (difficulty === 'easy') {
-        step = 0
-        numCards = 6
-        score = 0
-        hideFirstPage()
-    } else if (difficulty === 'medium') {
-        numCards = 12
-        score = 0
-        step = 0
-        hideFirstPage()
-    } else if (difficulty === 'hard') {
-        numCards = 18
-        score = 0
-        step = 0
-        hideFirstPage()
-    }
-
-    console.log('Кол-во карт :', numCards)
-
-    let arr: number[] = Array.from(
-        { length: numCards },
-        (_, index) => index + 1,
-    )
-    arr = arr
-        .map((i) => [Math.random(), i])
-        .sort((a, b) => a[0] - b[0])
-        .map((i) => i[1])
-        .slice(0, numCards / 2)
-
-    let arrB = Array.from(arr)
-    let arrC = [...arr, ...arrB]
-    let arrD = arrC
-        .map((i) => [Math.random(), i])
-        .sort((a, b) => a[0] - b[0])
-        .map((i) => i[1])
-        .reduce((acc: { [key: string]: any }, val: any) => {
-            acc[val.toString()] = val
-            return acc
-        }, {})
-
-    arr = Object.values(arrD) as number[]
-
-    console.log(arr)
-}
-
-let step = 0
 let arr: string[] = [
     'AceSpades',
     'KingSpades',
@@ -87,25 +38,56 @@ let arr: string[] = [
     '7Clubs',
     '6Clubs',
 ]
+export function renderLevel(difficulty: string) {
+    let numCards = 6
+    if (difficulty === 'easy') {
+        step = 0
+        numCards = 6
+        score = 0
+        hideFirstPage()
+    } else if (difficulty === 'medium') {
+        numCards = 12
+        score = 0
+        step = 0
+        hideFirstPage()
+    } else if (difficulty === 'hard') {
+        numCards = 18
+        score = 0
+        step = 0
+        hideFirstPage()
+    }
+    console.log('Кол-во карт :', numCards)
+
+    arr.sort(() => Math.random() - 0.5)
+    arr = arr.slice(0, numCards)
+    arr.forEach((el) => arr.push(el))
+    arr.sort(() => Math.random() - 0.5)
+    arr2 = arr.map((element, index) => {
+        return [index, element]
+    })
+    console.log('массив пар', arr2)
+}
+let arr2: (string | number)[][] = []
+let step = 0
 
 let score = 0
 console.log('Счет :', score)
 
 export function renderGame(isAct: boolean) {
     hideFirstPage()
-    let cardsHtml = arr
+    const cardsHtml = arr2
         .map((back) => {
             return `<div id="${back[0]}" class="back"><img class="playingFieldCard" id="${back[0]}" data-name="${back[1]}" src="./cards/back.jpg" alt=""></div>`
         })
         .join('')
-    let cardsBackHtml = arr
+    const cardsBackHtml = arr2
         .map((back) => {
-            return `<div id="${back[0]}" class="back"><img class="playingFieldCard" id="${back[0]}" data-name="${back[1]}" src="./cards/${back[1]}.jpg" alt=""></div>`
+            return `<div id="${back[0]}" class="back"><img class="playingFieldCard" id="${back[0]}" data-name="${back[1]}" src="./cards/${back}.jpg" alt=""></div>`
         })
         .join('')
-    let appElGame = document.getElementById('appGame') as HTMLElement
+    const appElGame = document.getElementById('appGame') as HTMLElement
 
-    let gameHtml = `
+    const gameHtml = `
   <div class="playingField center">
       <div class="playingFieldHeader">
           <div class="time">
@@ -226,7 +208,7 @@ export function hideFirstPage() {
 
 export function showWin() {
     const timerElement = document.getElementById('timer') as HTMLElement
-    let WinHTMl = ` <div class="WinLoseWindow"></div>
+    const WinHTMl = ` <div class="WinLoseWindow"></div>
     <div class="winOrLose">
      <div class="winLose">
     <img class="imgHeader" src="./cards/win.png" alt="win">
@@ -236,12 +218,12 @@ export function showWin() {
     <button id="firstpage" class="play__button returnButton">Играть снова</button> 
 </div>
 </div>`
-    let gameResult = document.getElementById('gameResult') as HTMLElement
+    const gameResult = document.getElementById('gameResult') as HTMLElement
     gameResult.innerHTML = WinHTMl
     const returnButtonAftergame = document.querySelector(
         '#firstpage',
     ) as Element
-    let appElGame = document.getElementById('appGame') as HTMLElement
+    const appElGame = document.getElementById('appGame') as HTMLElement
     returnButtonAftergame.addEventListener('click', () => {
         renderFirstPageComponent(appElGame)
         score = 0
@@ -252,7 +234,7 @@ export function showWin() {
 
 export function showLose() {
     const timerElement = document.getElementById('timer') as HTMLElement
-    let WinHTMl = `<div class="winOrLose">
+    const WinHTMl = `<div class="winOrLose">
      <div class="winLose">
     <img class="imgHeader" src="./cards/lose.png" alt="win">
     <h1 class="headerLow"> Вы проиграли!</h1>
@@ -261,12 +243,12 @@ export function showLose() {
     <button id="firstpage" class="play__button returnButton">Играть снова</button>
 </div>
 </div>`
-    let gameResult = document.getElementById('gameResult') as HTMLElement
+    const gameResult = document.getElementById('gameResult') as HTMLElement
     gameResult.innerHTML = WinHTMl
     const returnButtonAftergame = document.querySelector(
         '#firstpage',
     ) as Element
-    let appElGame = document.getElementById('appGame') as HTMLElement
+    const appElGame = document.getElementById('appGame') as HTMLElement
     returnButtonAftergame.addEventListener('click', () => {
         renderFirstPageComponent(appElGame)
         score = 0
@@ -289,9 +271,9 @@ export function int() {
 }
 let minutes = 0
 let seconds = 0
-let interval = 0
+const interval = 0
 function startTimer() {
-    let number: NodeJS.Timeout = setInterval(() => {
+    setInterval(() => {
         const timerElement = document.getElementById('timer') as HTMLElement
         seconds++
         if (seconds >= 60) {
