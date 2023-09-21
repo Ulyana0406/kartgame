@@ -75,12 +75,12 @@ console.log('Счет :', score)
 
 export function renderGame(isAct: boolean) {
     hideFirstPage()
-    const cardsHtml = arr2
+    const cardsHtml = arr
         .map((back) => {
             return `<div id="${back[0]}" class="back"><img class="playingFieldCard" id="${back[0]}" data-name="${back[1]}" src="./cards/back.jpg" alt=""></div>`
         })
         .join('')
-    const cardsBackHtml = arr2
+    const cardsBackHtml = arr
         .map((back) => {
             return `<div id="${back[0]}" class="back"><img class="playingFieldCard" id="${back[0]}" data-name="${back[1]}" src="./cards/${back}.jpg" alt=""></div>`
         })
