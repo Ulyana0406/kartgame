@@ -59,10 +59,10 @@ export function renderLevel(difficulty: string) {
     }
     console.log('Кол-во карт :', numCards)
 
-    arr.sort(() => Math.random() - 1)
+    arr.sort(() => Math.random() - 0.5)
     arr = arr.slice(0, numCards)
     arr.forEach((el) => arr.push(el))
-    arr.sort(() => Math.random() - 1)
+    arr.sort(() => Math.random() - 0.5)
     arr2 = arr.map((element, index) => {
         return [index, element]
     })
