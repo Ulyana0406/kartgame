@@ -14,7 +14,8 @@
         "start": "webpack-dev-server --open",
         "lint:ts": "eslint main.ts",
         "lint": "eslint --fix main.ts",
-        "lintgame-page": "eslint --fix components/game-page.ts"
+        "lintgame-page": "eslint --fix components/game-page.ts",
+        "lintfirst-page": "eslint --fix components/first-page-of-game.ts"
     },
     "author": "",
     "license": "ISC",

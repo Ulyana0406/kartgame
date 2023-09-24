@@ -4,7 +4,7 @@ import { int } from '../components/game-page'
 import { hideFirstPage } from '../components/game-page'
 
 export function renderFirstPageComponent(appEl: HTMLElement) {
-    let firstPageHtml = `
+    const firstPageHtml = `
     <div id="choose__complexity__window" class="choose__complexity__window">
     <div class="choose__complexity prompt__center">
     <h1 class="popup__windox__text">Выбери <br> сложность</h1>

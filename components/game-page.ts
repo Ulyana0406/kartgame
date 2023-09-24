@@ -76,6 +76,7 @@ console.log('Счет :', score)
 
 export function renderGame(isAct: boolean) {
     hideFirstPage()
+    playingFieldShow()
     const cardsHtml = arr
         .map((back) => {
             return `<div id="${back}" class="back"><img class="playingFieldCard" id="${back}" data-name="${back}" src="./cards/back.jpg" alt=""></div>`
@@ -207,6 +208,16 @@ export function hideFirstPage() {
     loader.classList.add('hidden')
 }
 
+export function playingFieldRemove() {
+    const removePlayingField = document.getElementById('appGame') as HTMLElement
+    removePlayingField.classList.add('hidden')
+}
+
+export function playingFieldShow() {
+    const removePlayingField = document.getElementById('appGame') as HTMLElement
+    removePlayingField.classList.remove('hidden')
+}
+
 export function showWin() {
     const timerElement = document.getElementById('timer') as HTMLElement
     const WinHTMl = ` <div class="WinLoseWindow"></div>
@@ -224,12 +235,13 @@ export function showWin() {
     const returnButtonAftergame = document.querySelector(
         '#firstpage',
     ) as Element
-    const appElGame = document.getElementById('appGame') as HTMLElement
+    //const appElGame = document.getElementById('appGame') as HTMLElement
     returnButtonAftergame.addEventListener('click', () => {
-        renderFirstPageComponent(appElGame)
+        showFirstPage()
         score = 0
         console.log('Играть заново')
-        hidegameResult()
+        gameResult.remove()
+        playingFieldRemove()
     })
 }
 
@@ -249,12 +261,13 @@ export function showLose() {
     const returnButtonAftergame = document.querySelector(
         '#firstpage',
     ) as Element
-    const appElGame = document.getElementById('appGame') as HTMLElement
+    //const appElGame = document.getElementById('appGame') as HTMLElement
     returnButtonAftergame.addEventListener('click', () => {
-        renderFirstPageComponent(appElGame)
+        showFirstPage()
         score = 0
         console.log('Играть заново')
-        hidegameResult()
+        gameResult.remove()
+        playingFieldRemove()
     })
 }
 
