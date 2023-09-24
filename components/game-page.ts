@@ -93,7 +93,7 @@ export function renderGame(isAct: boolean) {
   <div class="playingField center">
       <div class="playingFieldHeader">
           <div class="time">
-          <span class="time" id="timer">00:00</span>
+          <div class="time" id="timer">00:00</div>
           </div>
           <div>
               <button id="restart" class="play__button returnButton">Начать заново</button>
