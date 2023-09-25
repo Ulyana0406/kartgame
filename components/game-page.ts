@@ -1,4 +1,4 @@
-import { renderFirstPageComponent } from '../components/first-page-of-game'
+//import { renderFirstPageComponent } from '../components/first-page-of-game'
 import { userSettings } from '../main'
 let arr: string[] = [
     'AceSpades',
@@ -109,10 +109,12 @@ export function renderGame(isAct: boolean) {
     const returnButton = document.querySelector('#restart') as Element
 
     returnButton.addEventListener('click', () => {
-        renderFirstPageComponent(appElGame)
+        showFirstPage()
         score = 0
         console.log('Играть заново')
         hidegameResult()
+        playingFieldRemove()
+        stopTimer()
     })
 
     const playingFieldCards = document.querySelectorAll('.playingFieldCard')
@@ -299,8 +301,9 @@ function startTimer() {
         const formattedMinutes = minutes < 10 ? '0' + minutes : minutes
         const formattedSeconds = seconds < 10 ? '0' + seconds : seconds
 
-        // Выводим время в элемент разметки
-        timerElement.textContent = `${formattedMinutes}:${formattedSeconds}`
+        if (timerElement) {
+            timerElement.textContent = `${formattedMinutes}:${formattedSeconds}`
+        }
     }, 1000)
     console.log(number)
 }
