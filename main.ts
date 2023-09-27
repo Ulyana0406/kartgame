@@ -1,47 +1,42 @@
 import './style.scss'
-import { renderLevel } from './components/game-page.js'
-import {
-    EASY_PAGE,
-    FIRST_PAGE,
-    HARD_PAGE,
-    MEDIUM_PAGE,
-} from './modules/routes.js'
-import { renderFirstPageComponent } from './components/first-page-of-game.js'
-import { hideFirstPage } from './components/game-page.js'
+import { renderLevel } from './components/game-page'
+import { EASY_PAGE, FIRST_PAGE, HARD_PAGE, MEDIUM_PAGE } from './modules/routes'
+import { renderFirstPageComponent } from './components/first-page-of-game'
+import { hideFirstPage } from './components/game-page'
 export let page = FIRST_PAGE
 
-export let userSettings = {
+export const userSettings = {
     time: 0,
-    gameStatus: null,
-    difficalty: null,
+    gameStatus: 'in game',
+    difficulty: 'easy',
 }
 
-export const setPage = (newPage) => {
+export const setPage = (newPage: string) => {
     page = newPage
 }
 
-export const goToPage = (page) => {
+export const goToPage = (page: string) => {
     if ([EASY_PAGE, FIRST_PAGE, HARD_PAGE, MEDIUM_PAGE].includes(page)) {
         if (page === FIRST_PAGE) {
             userSettings.gameStatus = 'choose difficulty level'
             renderApp()
         }
         if (page === EASY_PAGE) {
-            userSettings.difficalty = 'easy'
+            userSettings.difficulty = 'easy'
             userSettings.gameStatus = 'in game'
             console.log(userSettings)
             renderApp()
             hideFirstPage()
         }
         if (page === MEDIUM_PAGE) {
-            userSettings.difficalty = 'medium'
+            userSettings.difficulty = 'medium'
             userSettings.gameStatus = 'in game'
             console.log(userSettings)
             renderApp()
             hideFirstPage()
         }
         if (page === HARD_PAGE) {
-            userSettings.difficalty = 'hard'
+            userSettings.difficulty = 'hard'
             userSettings.gameStatus = 'in game'
             console.log(userSettings)
             renderApp()
@@ -49,7 +44,7 @@ export const goToPage = (page) => {
         }
     }
 }
-let appEl = document.getElementById('app')
+const appEl = document.getElementById('app') as HTMLElement
 
 export const renderApp = () => {
     if (page === EASY_PAGE) {

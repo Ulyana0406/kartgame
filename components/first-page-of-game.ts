@@ -1,10 +1,10 @@
-import { goToPage, page, setPage } from '../main.js'
-import { EASY_PAGE, HARD_PAGE, MEDIUM_PAGE } from '../modules/routes.js'
-import { int } from './game-page.js'
-import { hideFirstPage } from './game-page.js'
+import { goToPage, page, setPage } from '../main'
+import { EASY_PAGE, HARD_PAGE, MEDIUM_PAGE } from '../modules/routes'
+import { int } from '../components/game-page'
+import { hideFirstPage } from '../components/game-page'
 
-export function renderFirstPageComponent(appEl) {
-    let firstPageHtml = `
+export function renderFirstPageComponent(appEl: HTMLElement) {
+    const firstPageHtml = `
     <div id="choose__complexity__window" class="choose__complexity__window">
     <div class="choose__complexity prompt__center">
     <h1 class="popup__windox__text">Выбери <br> сложность</h1>
@@ -26,10 +26,10 @@ export function renderFirstPageComponent(appEl) {
     `
     appEl.innerHTML = firstPageHtml
 
-    const easyBtn = document.getElementById('easyBtn')
-    const mediumBtn = document.getElementById('mediumBtn')
-    const hardBtn = document.getElementById('hardBtn')
-    const startBtn = document.getElementById('startBtn')
+    const easyBtn = document.getElementById('easyBtn') as HTMLElement
+    const mediumBtn = document.getElementById('mediumBtn') as HTMLElement
+    const hardBtn = document.getElementById('hardBtn') as HTMLElement
+    const startBtn = document.getElementById('startBtn') as HTMLElement
     const btnCollection = [easyBtn, mediumBtn, hardBtn]
 
     btnCollection.forEach((el) => {

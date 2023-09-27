@@ -2,20 +2,25 @@
     "name": "kartgame",
     "version": "1.0.0",
     "description": "",
-    "main": "main.js",
+    "main": "main.ts",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "format": "prettier --write",
-        "lint:js": "eslint main.js",
+        "format": "prettier --write main.ts",
+        "lint:js": "eslint main.ts",
         "lint:scss": "stylelint style.scss",
         "prepare": "husky install",
-        "lint": "npm run lint:js && npm run lint:scss",
+        "lintjs": "npm run lint:js && npm run lint:scss",
         "build": "webpack",
-        "start": "webpack-dev-server --open"
+        "start": "webpack-dev-server --open",
+        "lint:ts": "eslint main.ts",
+        "lint": "eslint --fix main.ts",
+        "lintgame-page": "eslint --fix components/game-page.ts",
+        "lintfirst-page": "eslint --fix components/first-page-of-game.ts"
     },
     "author": "",
     "license": "ISC",
     "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^6.7.2",
         "copy-webpack-plugin": "^11.0.0",
         "css-loader": "^6.8.1",
         "css-minimizer-webpack-plugin": "^5.0.1",
@@ -34,11 +39,15 @@
         "stylelint-config-standard": "^34.0.0",
         "stylelint-prettier": "^4.0.2",
         "stylelint-scss": "^5.1.0",
+        "ts-loader": "^9.4.4",
+        "typescript": "^5.2.2",
         "webpack": "^5.88.2",
         "webpack-cli": "^5.1.4",
         "webpack-dev-server": "^4.15.1"
     },
     "dependencies": {
-        "style-loader": "^3.3.3"
+        "eslint-plugin": "^1.0.1",
+        "style-loader": "^3.3.3",
+        "typescript-eslint": "^0.0.1-alpha.0"
     }
 }

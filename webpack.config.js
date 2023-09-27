@@ -4,8 +4,8 @@ const CopyPlugin = require('copy-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 module.exports = {
-    entry: '/main.js',
-    mode: 'production',
+    entry: '/main.ts',
+    mode: 'development',
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js',
@@ -27,6 +27,11 @@ module.exports = {
     module: {
         rules: [
             {
+                test: /\.ts$/,
+                use: 'ts-loader',
+                exclude: /node_modules/,
+            },
+            {
                 test: /\.s[ac]ss$/i,
                 use: [
                     MiniCssExtractPlugin.loader,
@@ -46,5 +51,8 @@ module.exports = {
                 type: 'asset/resource',
             },
         ],
+    },
+    resolve: {
+        extensions: ['.ts', '.js'],
     },
 }
