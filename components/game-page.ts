@@ -43,16 +43,16 @@ export function renderLevel(difficulty: string) {
     let numCards = 0
     if (difficulty === 'easy') {
         step = 0
-        numCards = 6
+        numCards = 3
         score = 0
         hideFirstPage()
     } else if (difficulty === 'medium') {
-        numCards = 12
+        numCards = 6
         score = 0
         step = 0
         hideFirstPage()
     } else if (difficulty === 'hard') {
-        numCards = 18
+        numCards = 9
         score = 0
         step = 0
         hideFirstPage()
