@@ -1,5 +1,5 @@
 import './style.scss'
-import { renderLevel } from './components/game-page'
+import { renderLevel } from './components/renderlevel'
 import { EASY_PAGE, FIRST_PAGE, HARD_PAGE, MEDIUM_PAGE } from './modules/routes'
 import { renderFirstPageComponent } from './components/first-page-of-game'
 import { hideFirstPage } from './components/game-page'

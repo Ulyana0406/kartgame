@@ -39,35 +39,6 @@ let arr: string[] = [
     '6Clubs',
 ]
 let arr2: (string | number)[][] = []
-export function renderLevel(difficulty: string) {
-    let numCards = 0
-    if (difficulty === 'easy') {
-        step = 0
-        numCards = 3
-        score = 0
-        hideFirstPage()
-    } else if (difficulty === 'medium') {
-        numCards = 6
-        score = 0
-        step = 0
-        hideFirstPage()
-    } else if (difficulty === 'hard') {
-        numCards = 9
-        score = 0
-        step = 0
-        hideFirstPage()
-    }
-    console.log('Кол-во карт :', numCards)
-
-    arr.sort(() => Math.random() - 0.5)
-    arr = arr.slice(0, numCards)
-    arr.forEach((el) => arr.push(el))
-    arr.sort(() => Math.random() - 0.5)
-    arr2 = arr.map((element, index) => {
-        return [index, element]
-    })
-    console.log('массив пар', arr2)
-}
 
 let step = 0
 

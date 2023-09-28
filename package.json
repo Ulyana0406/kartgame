@@ -21,7 +21,8 @@
         "eslint-test": "eslint --fix components/game-page.test.js",
         "eslint-webpack": "eslint --fix webpack.config.js",
         "eslint-babel": "eslint --fix babel.config.js",
-        "main-eslint": "eslint --fix main.ts"
+        "main-eslint": "eslint --fix main.ts",
+        "eslint-renderlevel": "eslint --fix components/renderlevel.ts"
     },
     "author": "",
     "license": "ISC",
