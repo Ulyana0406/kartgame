@@ -1,6 +1,6 @@
 //import { renderFirstPageComponent } from '../components/first-page-of-game'
 import { userSettings } from '../main'
-let arr: string[] = [
+const arr: string[] = [
     'AceSpades',
     'KingSpades',
     'QueenSpades',
@@ -38,42 +38,13 @@ let arr: string[] = [
     '7Clubs',
     '6Clubs',
 ]
-let arr2: (string | number)[][] = []
-export function renderLevel(difficulty: string) {
-    let numCards = 0
-    if (difficulty === 'easy') {
-        step = 0
-        numCards = 6
-        score = 0
-        hideFirstPage()
-    } else if (difficulty === 'medium') {
-        numCards = 12
-        score = 0
-        step = 0
-        hideFirstPage()
-    } else if (difficulty === 'hard') {
-        numCards = 18
-        score = 0
-        step = 0
-        hideFirstPage()
-    }
-    console.log('Кол-во карт :', numCards)
-
-    arr.sort(() => Math.random() - 0.5)
-    arr = arr.slice(0, numCards)
-    arr.forEach((el) => arr.push(el))
-    arr.sort(() => Math.random() - 0.5)
-    arr2 = arr.map((element, index) => {
-        return [index, element]
-    })
-    console.log('массив пар', arr2)
-}
+const arr2: (string | number)[][] = []
 
 let step = 0
 
 let score = 0
 console.log('Счет :', score)
-
+console.log(arr2)
 export function renderGame(isAct: boolean) {
     hideFirstPage()
     playingFieldShow()
