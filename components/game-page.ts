@@ -1,6 +1,6 @@
 //import { renderFirstPageComponent } from '../components/first-page-of-game'
 import { userSettings } from '../main'
-let arr: string[] = [
+const arr: string[] = [
     'AceSpades',
     'KingSpades',
     'QueenSpades',
@@ -38,13 +38,13 @@ let arr: string[] = [
     '7Clubs',
     '6Clubs',
 ]
-let arr2: (string | number)[][] = []
+const arr2: (string | number)[][] = []
 
 let step = 0
 
 let score = 0
 console.log('Счет :', score)
-
+console.log(arr2)
 export function renderGame(isAct: boolean) {
     hideFirstPage()
     playingFieldShow()

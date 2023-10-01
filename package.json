@@ -22,7 +22,10 @@
         "eslint-webpack": "eslint --fix webpack.config.js",
         "eslint-babel": "eslint --fix babel.config.js",
         "main-eslint": "eslint --fix main.ts",
-        "eslint-renderlevel": "eslint --fix components/renderlevel.ts"
+        "eslint-renderlevel": "eslint --fix components/renderlevel.ts",
+        "eslint-jestconfig": "eslint --fix jest.config.js",
+        "eslint-fileTransformer": "eslint --fix fileTransformer.js",
+        "eslint-game-page": "eslint --fix components/game-page.ts"
     },
     "author": "",
     "license": "ISC",
@@ -40,6 +43,7 @@
         "eslint-plugin-prettier": "^5.0.0",
         "html-webpack-plugin": "^5.5.3",
         "husky": "^8.0.3",
+        "identity-obj-proxy": "^3.0.0",
         "jest": "^29.7.0",
         "mini-css-extract-plugin": "^2.7.6",
         "postcss-less": "^6.0.0",
