@@ -37,7 +37,7 @@ let arr: string[] = [
     '7Clubs',
     '6Clubs',
 ]
-let arr2: (string | number)[][] = []
+export let arr2: string[] = []
 let step = 0
 let score = 0
 export function renderLevel(difficulty: string) {
@@ -64,8 +64,8 @@ export function renderLevel(difficulty: string) {
     arr = arr.slice(0, numCards)
     arr.forEach((el) => arr.push(el))
     arr.sort(() => Math.random() - 0.5)
-    arr2 = arr.map((element, index) => {
-        return [index, element]
+    arr2 = arr.map((element) => {
+        return element
     })
     console.log('массив пар', arr2)
 }

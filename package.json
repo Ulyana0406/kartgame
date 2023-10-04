@@ -25,7 +25,8 @@
         "eslint-renderlevel": "eslint --fix components/renderlevel.ts",
         "eslint-jestconfig": "eslint --fix jest.config.js",
         "eslint-fileTransformer": "eslint --fix fileTransformer.js",
-        "eslint-game-page": "eslint --fix components/game-page.ts"
+        "eslint-game-page": "eslint --fix components/game-page.ts",
+        "eslint-first-page": "eslint --fix components/first-page-of-game.ts"
     },
     "author": "",
     "license": "ISC",

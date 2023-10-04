@@ -1,44 +1,6 @@
 //import { renderFirstPageComponent } from '../components/first-page-of-game'
 import { userSettings } from '../main'
-const arr: string[] = [
-    'AceSpades',
-    'KingSpades',
-    'QueenSpades',
-    'JackSpades',
-    '10Spades',
-    '9Spades',
-    '8Spades',
-    '7Spades',
-    '6Spades',
-    'AceHeart',
-    'KingHeart',
-    'QueenHeart',
-    'JackHeart',
-    '10Heart',
-    '9Heart',
-    '8Heart',
-    '7Heart',
-    '6Heart',
-    'AceDiamonds',
-    'KingDiamonds',
-    'QueenDiamonds',
-    'JackDiamonds',
-    '10Diamonds',
-    '9Diamonds',
-    '8Diamonds',
-    '7Diamonds',
-    '6Diamonds',
-    'AceClubs',
-    'KingClubs',
-    'QueenClubs',
-    'JackClubs',
-    '10Clubs',
-    '9Clubs',
-    '8Clubs',
-    '7Clubs',
-    '6Clubs',
-]
-const arr2: (string | number)[][] = []
+import { arr2 } from './renderlevel-of-game'
 
 let step = 0
 
@@ -48,12 +10,12 @@ console.log(arr2)
 export function renderGame(isAct: boolean) {
     hideFirstPage()
     playingFieldShow()
-    const cardsHtml = arr
+    const cardsHtml = arr2
         .map((back) => {
             return `<div id="${back}" class="back"><img class="playingFieldCard" id="${back}" data-name="${back}" src="./cards/back.jpg" alt=""></div>`
         })
         .join('')
-    const cardsBackHtml = arr
+    const cardsBackHtml = arr2
         .map((back) => {
             return `<div id="${back}" class="back"><img class="playingFieldCard" id="${back}" data-name="${back}" src="./cards/${back}.jpg" alt=""></div>`
         })
@@ -105,12 +67,12 @@ export function renderGame(isAct: boolean) {
                 if (compareId.length === 2 && compareNameId.length === 2) {
                     if (compareId[0] !== compareId[1]) {
                         if (compareNameId[0] === compareNameId[1]) {
-                            score = score + 1
-                            step = ++step
+                            score++
+                            step++
                             compareId = []
                             compareNameId = []
                         } else {
-                            step = ++step
+                            step++
                             setTimeout(() => {
                                 playingFieldCards.forEach(
                                     (playingFieldCard) => {
@@ -258,9 +220,9 @@ export function int() {
 }
 let minutes = 0
 let seconds = 0
-const interval = 0
+let intervalId: NodeJS.Timeout
 function startTimer() {
-    const number: NodeJS.Timeout = setInterval(() => {
+    intervalId = setInterval(() => {
         const timerElement = document.getElementById('timer') as HTMLElement
         seconds++
         if (seconds >= 60) {
@@ -276,11 +238,9 @@ function startTimer() {
             timerElement.textContent = `${formattedMinutes}:${formattedSeconds}`
         }
     }, 1000)
-    console.log(number)
 }
 function stopTimer() {
-    clearInterval(interval)
+    clearInterval(intervalId)
     seconds = 0
     minutes = 0
 }
-//document.getElementById("timeData").textContent = "11.11";

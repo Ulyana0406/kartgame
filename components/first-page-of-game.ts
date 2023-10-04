@@ -12,10 +12,10 @@ export function renderFirstPageComponent(appEl: HTMLElement) {
         <input type="radio" class="radio" id="easyBtn" name="radios" value="Легкий">
     <label for="easyBtn">1</label>
     
-    <input type="radio" id="mediumBtn" name="radios" value="Средний">
+    <input type="radio" class="radio" id="mediumBtn" name="radios" value="Средний">
     <label for="mediumBtn">2</label>
     
-    <input type="radio" id="hardBtn" name="radios" value="Сложный">
+    <input type="radio" class="radio" id="hardBtn" name="radios" value="Сложный">
     <label for="hardBtn">3</label>
     </section>
   <button class="play__button" id="startBtn">
