@@ -52,76 +52,75 @@ export function renderGame(isAct: boolean) {
 
     const playingFieldCards = document.querySelectorAll('.playingFieldCard')
     let compareNameId: string[] = []
-    let compareId: string[] = []
-    playingFieldCards.forEach((playingFieldCard) => {
+    const indexOfCards: number[] = []
+    playingFieldCards.forEach((playingFieldCard, index) => {
         playingFieldCard.addEventListener('click', (event) => {
             if (event.target instanceof HTMLElement) {
                 const nameId = event.target.dataset.name || ''
-                const id = event.target.id
+                // const id = event.target.id
 
                 playingFieldCard.setAttribute('src', `/cards/${nameId}.jpg`)
 
-                compareId.push(id)
+                // compareId.push(id)
                 compareNameId.push(nameId)
+                indexOfCards.push(index)
 
-                if (compareId.length === 2 && compareNameId.length === 2) {
-                    if (compareId[0] !== compareId[1]) {
-                        if (compareNameId[0] === compareNameId[1]) {
-                            score++
-                            step++
-                            compareId = []
-                            compareNameId = []
-                        } else {
-                            step++
-                            setTimeout(() => {
-                                playingFieldCards.forEach(
-                                    (playingFieldCard) => {
-                                        playingFieldCard.setAttribute(
-                                            'src',
-                                            '/cards/back.jpg',
-                                        )
-                                    },
-                                )
-                                console.log('Очистка')
-                            }, 500)
-                            compareId = []
-                            compareNameId = []
+                console.log(indexOfCards)
+
+                if (compareNameId.length <= 1) {
+                    return
+                }
+                if (compareNameId[0] !== compareNameId[1]) {
+                    step++
+                    setTimeout(() => {
+                        playingFieldCards[
+                            indexOfCards[indexOfCards.length - 1]
+                        ].setAttribute('src', '/cards/back.jpg')
+                        playingFieldCards[
+                            indexOfCards[indexOfCards.length - 2]
+                        ].setAttribute('src', '/cards/back.jpg')
+                        indexOfCards.shift()
+                        indexOfCards.shift()
+                        console.log('Очистка')
+                    }, 500)
+                    compareNameId = []
+                    return
+                }
+                if (compareNameId[0] === compareNameId[1]) {
+                    score++
+                    step++
+                    compareNameId = []
+                }
+
+                console.log('Счет :', score, 'Ход :', step)
+                if (userSettings.difficulty === 'easy') {
+                    if (step === 5 || score === 3) {
+                        if (score === 3) {
+                            showWin()
+                            stopTimer()
+                        } else if (score <= 3) {
+                            stopTimer()
+                            showLose()
                         }
-                    } else if (compareId[0] === compareId[1]) {
-                        compareNameId.shift()
-                        compareId.shift()
                     }
-
-                    console.log('Счет :', score, 'Ход :', step)
-                    if (userSettings.difficulty === 'easy') {
-                        if (step === 5 || score === 3) {
-                            if (score === 3) {
-                                showWin()
-                                stopTimer()
-                            } else if (score <= 3) {
-                                stopTimer()
-                                showLose()
-                            }
+                } else if (userSettings.difficulty === 'medium') {
+                    if (step === 8 || score === 6) {
+                        if (score === 6) {
+                            showWin()
+                            stopTimer()
+                        } else {
+                            showLose()
+                            stopTimer()
                         }
-                    } else if (userSettings.difficulty === 'medium') {
-                        if (step === 8 || score === 6) {
-                            if (score === 6) {
-                                showWin()
-                                stopTimer()
-                            } else {
-                                showLose()
-                                stopTimer()
-                            }
-                        }
-                    } else if (userSettings.difficulty === 'hard') {
-                        if (step === 9 || score === 9) {
-                            if (score === 9) {
-                                showWin()
-                                stopTimer()
-                            } else {
-                                showLose()
-                                stopTimer()
-                            }
+                    }
+                } else if (userSettings.difficulty === 'hard') {
+                    if (step === 9 || score === 9) {
+                        if (score === 9) {
+                            showWin()
+                            stopTimer()
+                        } else {
+                            showLose()
+                            stopTimer()
                         }
                     }
                 }
