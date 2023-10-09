@@ -141,18 +141,24 @@ export function hideFirstPage() {
 
 export function playingFieldRemove() {
     const removePlayingField = document.getElementById('appGame') as HTMLElement
-    removePlayingField.classList.add('hidden')
+    if (removePlayingField) {
+        removePlayingField.classList.add('hidden')
+    }
 }
 
 export function playingFieldShow() {
     const removePlayingField = document.getElementById('appGame') as HTMLElement
-    removePlayingField.classList.remove('hidden')
+
+    if (removePlayingField) {
+        removePlayingField.classList.remove('hidden')
+    }
 }
 
 export function showWin() {
     const gameResult = document.getElementById('gameResult') as HTMLElement
     const timerElement = document.getElementById('timer') as HTMLElement
-    const WinHTMl = ` <div class="WinLoseWindow"></div>
+    if (gameResult) {
+        const WinHTMl = ` <div class="WinLoseWindow"></div>
     <div class="winOrLose">
      <div class="winLose">
     <img class="imgHeader" src="./cards/win.png" alt="win">
@@ -162,18 +168,19 @@ export function showWin() {
     <button id="firstpage" class="play__button returnButton">Играть снова</button> 
 </div>
 </div>`
-    gameResult.innerHTML = WinHTMl
-    const returnButtonAftergame = document.querySelector(
-        '#firstpage',
-    ) as Element
-    //const appElGame = document.getElementById('appGame') as HTMLElement
-    returnButtonAftergame.addEventListener('click', () => {
-        showFirstPage()
-        score = 0
-        console.log('Играть заново')
-        gameResult.remove()
-        playingFieldRemove()
-    })
+        gameResult.innerHTML = WinHTMl
+        const returnButtonAftergame = document.querySelector(
+            '#firstpage',
+        ) as Element
+        //const appElGame = document.getElementById('appGame') as HTMLElement
+        returnButtonAftergame.addEventListener('click', () => {
+            showFirstPage()
+            score = 0
+            console.log('Играть заново')
+            gameResult.remove()
+            playingFieldRemove()
+        })
+    }
 }
 
 export function showLose() {
