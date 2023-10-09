@@ -52,75 +52,72 @@ export function renderGame(isAct: boolean) {
 
     const playingFieldCards = document.querySelectorAll('.playingFieldCard')
     let compareNameId: string[] = []
-    const indexOfCards: number[] = []
-    playingFieldCards.forEach((playingFieldCard, index) => {
+    let compareId: string[] = []
+    playingFieldCards.forEach((playingFieldCard) => {
         playingFieldCard.addEventListener('click', (event) => {
             if (event.target instanceof HTMLElement) {
                 const nameId = event.target.dataset.name || ''
-                // const id = event.target.id
-
+                const id = event.target.id
                 playingFieldCard.setAttribute('src', `/cards/${nameId}.jpg`)
-
-                // compareId.push(id)
+                compareId.push(id)
                 compareNameId.push(nameId)
-                indexOfCards.push(index)
-
-                console.log(indexOfCards)
-
-                if (compareNameId.length <= 1) {
-                    return
-                }
-                if (compareNameId[0] !== compareNameId[1]) {
-                    step++
-                    setTimeout(() => {
-                        playingFieldCards[
-                            indexOfCards[indexOfCards.length - 1]
-                        ].setAttribute('src', '/cards/back.jpg')
-                        playingFieldCards[
-                            indexOfCards[indexOfCards.length - 2]
-                        ].setAttribute('src', '/cards/back.jpg')
-                        indexOfCards.shift()
-                        indexOfCards.shift()
-                        console.log('Очистка')
-                    }, 500)
-                    compareNameId = []
-                    return
-                }
-                if (compareNameId[0] === compareNameId[1]) {
-                    score++
-                    step++
-                    compareNameId = []
-                }
-
-                console.log('Счет :', score, 'Ход :', step)
-                if (userSettings.difficulty === 'easy') {
-                    if (step === 5 || score === 3) {
-                        if (score === 3) {
-                            showWin()
-                            stopTimer()
-                        } else if (score <= 3) {
-                            stopTimer()
-                            showLose()
-                        }
-                    }
-                } else if (userSettings.difficulty === 'medium') {
-                    if (step === 8 || score === 6) {
-                        if (score === 6) {
-                            showWin()
-                            stopTimer()
+                if (compareId.length === 2 && compareNameId.length === 2) {
+                    if (compareId[0] !== compareId[1]) {
+                        if (compareNameId[0] === compareNameId[1]) {
+                            score++
+                            step++
+                            compareId = []
+                            compareNameId = []
                         } else {
-                            showLose()
-                            stopTimer()
+                            step++
+                            setTimeout(() => {
+                                playingFieldCards.forEach(
+                                    (playingFieldCard) => {
+                                        playingFieldCard.setAttribute(
+                                            'src',
+                                            '/cards/back.jpg',
+                                        )
+                                    },
+                                )
+                                console.log('Очистка')
+                            }, 500)
+                            compareId = []
+                            compareNameId = []
                         }
+                    } else if (compareId[0] === compareId[1]) {
+                        compareNameId.shift()
+                        compareId.shift()
                     }
-                } else if (userSettings.difficulty === 'hard') {
-                    if (step === 9 || score === 9) {
-                        if (score === 9) {
-                            showWin()
-                            stopTimer()
-                        } else {
-                            showLose()
-                            stopTimer()
+                    console.log('Счет :', score, 'Ход :', step)
+                    if (userSettings.difficulty === 'easy') {
+                        if (step === 5 || score === 3) {
+                            if (score === 3) {
+                                showWin()
+                                stopTimer()
+                            } else if (score <= 3) {
+                                stopTimer()
+                                showLose()
+                            }
+                        }
+                    } else if (userSettings.difficulty === 'medium') {
+                        if (step === 8 || score === 6) {
+                            if (score === 6) {
+                                showWin()
+                                stopTimer()
+                            } else {
+                                showLose()
+                                stopTimer()
+                            }
+                        }
+                    } else if (userSettings.difficulty === 'hard') {
+                        if (step === 9 || score === 9) {
+                            if (score === 9) {
+                                showWin()
+                                stopTimer()
+                            } else {
+                                showLose()
+                                stopTimer()
+                            }
                         }
                     }
                 }
@@ -153,6 +150,7 @@ export function playingFieldShow() {
 }
 
 export function showWin() {
+    const gameResult = document.getElementById('gameResult') as HTMLElement
     const timerElement = document.getElementById('timer') as HTMLElement
     const WinHTMl = ` <div class="WinLoseWindow"></div>
     <div class="winOrLose">
@@ -164,7 +162,6 @@ export function showWin() {
     <button id="firstpage" class="play__button returnButton">Играть снова</button> 
 </div>
 </div>`
-    const gameResult = document.getElementById('gameResult') as HTMLElement
     gameResult.innerHTML = WinHTMl
     const returnButtonAftergame = document.querySelector(
         '#firstpage',
@@ -180,29 +177,32 @@ export function showWin() {
 }
 
 export function showLose() {
-    const timerElement = document.getElementById('timer') as HTMLElement
-    const WinHTMl = `<div class="winOrLose">
-     <div class="winLose">
-    <img class="imgHeader" src="./cards/lose.png" alt="win">
-    <h1 class="headerLow"> Вы проиграли!</h1>
-    <h3 class="heading">Затраченное время:</h3>
-    <span class="timer" id="timer">${timerElement.textContent}</span>
-    <button id="firstpage" class="play__button returnButton">Играть снова</button>
-</div>
-</div>`
     const gameResult = document.getElementById('gameResult') as HTMLElement
-    gameResult.innerHTML = WinHTMl
-    const returnButtonAftergame = document.querySelector(
-        '#firstpage',
-    ) as Element
-    //const appElGame = document.getElementById('appGame') as HTMLElement
-    returnButtonAftergame.addEventListener('click', () => {
-        showFirstPage()
-        score = 0
-        console.log('Играть заново')
-        gameResult.remove()
-        playingFieldRemove()
-    })
+    const timerElement = document.getElementById('timer') as HTMLElement
+
+    if (gameResult) {
+        const WinHTMl = `<div class="winOrLose">
+         <div class="winLose">
+        <img class="imgHeader" src="./cards/lose.png" alt="win">
+        <h1 class="headerLow"> Вы проиграли!</h1>
+        <h3 class="heading">Затраченное время:</h3>
+        <span class="timer" id="timer">${timerElement.textContent}</span>
+        <button id="firstpage" class="play__button returnButton">Играть снова</button>
+    </div>
+    </div>`
+        gameResult.innerHTML = WinHTMl
+        const returnButtonAftergame = document.querySelector(
+            '#firstpage',
+        ) as Element
+        //const appElGame = document.getElementById('appGame') as HTMLElement
+        returnButtonAftergame.addEventListener('click', () => {
+            showFirstPage()
+            score = 0
+            console.log('Играть заново')
+            gameResult.remove()
+            playingFieldRemove()
+        })
+    }
 }
 
 export function hidegameResult() {
