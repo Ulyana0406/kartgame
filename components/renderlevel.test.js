@@ -1,6 +1,6 @@
 /* eslint-disable */
 const { it } = require('@jest/globals')
-const { renderLevel } = require('./renderlevel')
+const { renderLevel } = require('./renderlevel-of-game')
 const arr = [
     'AceSpades',
     'KingSpades',

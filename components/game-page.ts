@@ -1,44 +1,6 @@
 //import { renderFirstPageComponent } from '../components/first-page-of-game'
 import { userSettings } from '../main'
-const arr: string[] = [
-    'AceSpades',
-    'KingSpades',
-    'QueenSpades',
-    'JackSpades',
-    '10Spades',
-    '9Spades',
-    '8Spades',
-    '7Spades',
-    '6Spades',
-    'AceHeart',
-    'KingHeart',
-    'QueenHeart',
-    'JackHeart',
-    '10Heart',
-    '9Heart',
-    '8Heart',
-    '7Heart',
-    '6Heart',
-    'AceDiamonds',
-    'KingDiamonds',
-    'QueenDiamonds',
-    'JackDiamonds',
-    '10Diamonds',
-    '9Diamonds',
-    '8Diamonds',
-    '7Diamonds',
-    '6Diamonds',
-    'AceClubs',
-    'KingClubs',
-    'QueenClubs',
-    'JackClubs',
-    '10Clubs',
-    '9Clubs',
-    '8Clubs',
-    '7Clubs',
-    '6Clubs',
-]
-const arr2: (string | number)[][] = []
+import { arr2 } from './renderlevel-of-game'
 
 let step = 0
 
@@ -48,12 +10,12 @@ console.log(arr2)
 export function renderGame(isAct: boolean) {
     hideFirstPage()
     playingFieldShow()
-    const cardsHtml = arr
+    const cardsHtml = arr2
         .map((back) => {
             return `<div id="${back}" class="back"><img class="playingFieldCard" id="${back}" data-name="${back}" src="./cards/back.jpg" alt=""></div>`
         })
         .join('')
-    const cardsBackHtml = arr
+    const cardsBackHtml = arr2
         .map((back) => {
             return `<div id="${back}" class="back"><img class="playingFieldCard" id="${back}" data-name="${back}" src="./cards/${back}.jpg" alt=""></div>`
         })
@@ -67,10 +29,14 @@ export function renderGame(isAct: boolean) {
           <div class="time" id="timer">00:00</div>
           </div>
           <div>
-              <button id="restart" class="play__button returnButton">Начать заново</button>
+              <button id="restart" class="play__button returnButton"  ${
+                  !isAct && 'disabled'
+              } >Начать заново
+              </button>
           </div>
       </div>
       <div class="playingFieldCards">
+
           ${isAct ? cardsHtml : cardsBackHtml}
       </div>
   </div>
@@ -90,76 +56,80 @@ export function renderGame(isAct: boolean) {
 
     const playingFieldCards = document.querySelectorAll('.playingFieldCard')
     let compareNameId: string[] = []
-    let compareId: string[] = []
-    playingFieldCards.forEach((playingFieldCard) => {
+    let indexOfCards: number[] = []
+    playingFieldCards.forEach((playingFieldCard, index) => {
         playingFieldCard.addEventListener('click', (event) => {
+            if (playingFieldCard.classList.contains('active')) {
+                return
+            }
+            playingFieldCard.classList.add('active')
             if (event.target instanceof HTMLElement) {
                 const nameId = event.target.dataset.name || ''
-                const id = event.target.id
+                // const id = event.target.id
 
                 playingFieldCard.setAttribute('src', `/cards/${nameId}.jpg`)
 
-                compareId.push(id)
+                // compareId.push(id)
                 compareNameId.push(nameId)
+                indexOfCards.push(index)
 
-                if (compareId.length === 2 && compareNameId.length === 2) {
-                    if (compareId[0] !== compareId[1]) {
-                        if (compareNameId[0] === compareNameId[1]) {
-                            score = score + 1
-                            step = ++step
-                            compareId = []
-                            compareNameId = []
-                        } else {
-                            step = ++step
-                            setTimeout(() => {
-                                playingFieldCards.forEach(
-                                    (playingFieldCard) => {
-                                        playingFieldCard.setAttribute(
-                                            'src',
-                                            '/cards/back.jpg',
-                                        )
-                                    },
-                                )
-                                console.log('Очистка')
-                            }, 500)
-                            compareId = []
-                            compareNameId = []
+                console.log(indexOfCards)
+
+                if (compareNameId.length <= 1) {
+                    return
+                }
+                if (compareNameId[0] !== compareNameId[1]) {
+                    step++
+                    setTimeout(() => {
+                        for (let i = 1; i <= 2; i++) {
+                            playingFieldCards[
+                                indexOfCards[indexOfCards.length - i]
+                            ].setAttribute('src', '/cards/back.jpg')
+                            playingFieldCards[
+                                indexOfCards[indexOfCards.length - i]
+                            ].classList.remove('active')
                         }
-                    } else if (compareId[0] === compareId[1]) {
-                        compareNameId.shift()
-                        compareId.shift()
+                        indexOfCards = []
+                        compareNameId = []
+                        console.log('Очистка')
+                    }, 500)
+                }
+                if (compareNameId[0] === compareNameId[1]) {
+                    score++
+                    step++
+                    compareNameId = []
+                    indexOfCards = []
+                }
+
+                console.log('Счет :', score, 'Ход :', step)
+                if (userSettings.difficulty === 'easy') {
+                    if (step === 5 || score === 3) {
+                        if (score === 3) {
+                            showWin()
+                            stopTimer()
+                        } else if (score <= 3) {
+                            stopTimer()
+                            showLose()
+                        }
                     }
-
-                    console.log('Счет :', score, 'Ход :', step)
-                    if (userSettings.difficulty === 'easy') {
-                        if (step === 5 || score === 3) {
-                            if (score === 3) {
-                                showWin()
-                                stopTimer()
-                            } else if (score <= 3) {
-                                stopTimer()
-                                showLose()
-                            }
+                } else if (userSettings.difficulty === 'medium') {
+                    if (step === 8 || score === 6) {
+                        if (score === 6) {
+                            showWin()
+                            stopTimer()
+                        } else {
+                            showLose()
+                            stopTimer()
                         }
-                    } else if (userSettings.difficulty === 'medium') {
-                        if (step === 8 || score === 6) {
-                            if (score === 6) {
-                                showWin()
-                                stopTimer()
-                            } else {
-                                showLose()
-                                stopTimer()
-                            }
-                        }
-                    } else if (userSettings.difficulty === 'hard') {
-                        if (step === 9 || score === 9) {
-                            if (score === 9) {
-                                showWin()
-                                stopTimer()
-                            } else {
-                                showLose()
-                                stopTimer()
-                            }
+                    }
+                } else if (userSettings.difficulty === 'hard') {
+                    if (step === 9 || score === 9) {
+                        if (score === 9) {
+                            showWin()
+                            stopTimer()
+                        } else {
+                            showLose()
+                            stopTimer()
                         }
                     }
                 }
@@ -183,17 +153,24 @@ export function hideFirstPage() {
 
 export function playingFieldRemove() {
     const removePlayingField = document.getElementById('appGame') as HTMLElement
-    removePlayingField.classList.add('hidden')
+    if (removePlayingField) {
+        removePlayingField.classList.add('hidden')
+    }
 }
 
 export function playingFieldShow() {
     const removePlayingField = document.getElementById('appGame') as HTMLElement
-    removePlayingField.classList.remove('hidden')
+
+    if (removePlayingField) {
+        removePlayingField.classList.remove('hidden')
+    }
 }
 
 export function showWin() {
+    const gameResult = document.getElementById('gameResult') as HTMLElement
     const timerElement = document.getElementById('timer') as HTMLElement
-    const WinHTMl = ` <div class="WinLoseWindow"></div>
+    if (gameResult) {
+        const WinHTMl = ` <div class="WinLoseWindow"></div>
     <div class="winOrLose">
      <div class="winLose">
     <img class="imgHeader" src="./cards/win.png" alt="win">
@@ -203,50 +180,55 @@ export function showWin() {
     <button id="firstpage" class="play__button returnButton">Играть снова</button> 
 </div>
 </div>`
-    const gameResult = document.getElementById('gameResult') as HTMLElement
-    gameResult.innerHTML = WinHTMl
-    const returnButtonAftergame = document.querySelector(
-        '#firstpage',
-    ) as Element
-    //const appElGame = document.getElementById('appGame') as HTMLElement
-    returnButtonAftergame.addEventListener('click', () => {
-        showFirstPage()
-        score = 0
-        console.log('Играть заново')
-        gameResult.remove()
-        playingFieldRemove()
-    })
+        gameResult.innerHTML = WinHTMl
+        const returnButtonAftergame = document.querySelector(
+            '#firstpage',
+        ) as Element
+        //const appElGame = document.getElementById('appGame') as HTMLElement
+        returnButtonAftergame.addEventListener('click', () => {
+            showFirstPage()
+            score = 0
+            console.log('Играть заново')
+            gameResult.remove()
+            playingFieldRemove()
+        })
+    }
 }
 
 export function showLose() {
-    const timerElement = document.getElementById('timer') as HTMLElement
-    const WinHTMl = `<div class="winOrLose">
-     <div class="winLose">
-    <img class="imgHeader" src="./cards/lose.png" alt="win">
-    <h1 class="headerLow"> Вы проиграли!</h1>
-    <h3 class="heading">Затраченное время:</h3>
-    <span class="timer" id="timer">${timerElement.textContent}</span>
-    <button id="firstpage" class="play__button returnButton">Играть снова</button>
-</div>
-</div>`
     const gameResult = document.getElementById('gameResult') as HTMLElement
-    gameResult.innerHTML = WinHTMl
-    const returnButtonAftergame = document.querySelector(
-        '#firstpage',
-    ) as Element
-    //const appElGame = document.getElementById('appGame') as HTMLElement
-    returnButtonAftergame.addEventListener('click', () => {
-        showFirstPage()
-        score = 0
-        console.log('Играть заново')
-        gameResult.remove()
-        playingFieldRemove()
-    })
+    const timerElement = document.getElementById('timer') as HTMLElement
+
+    if (gameResult) {
+        const WinHTMl = `<div class="winOrLose">
+         <div class="winLose">
+        <img class="imgHeader" src="./cards/lose.png" alt="win">
+        <h1 class="headerLow"> Вы проиграли!</h1>
+        <h3 class="heading">Затраченное время:</h3>
+        <span class="timer" id="timer">${timerElement.textContent}</span>
+        <button id="firstpage" class="play__button returnButton">Играть снова</button>
+    </div>
+    </div>`
+        gameResult.innerHTML = WinHTMl
+        const returnButtonAftergame = document.querySelector(
+            '#firstpage',
+        ) as Element
+        //const appElGame = document.getElementById('appGame') as HTMLElement
+        returnButtonAftergame.addEventListener('click', () => {
+            showFirstPage()
+            score = 0
+            console.log('Играть заново')
+            gameResult.remove()
+            playingFieldRemove()
+        })
+    }
 }
 
 export function hidegameResult() {
     const hidegameResult = document.getElementById('gameResult') as HTMLElement
-    hidegameResult.classList.add('hidden')
+    if (hidegameResult) {
+        hidegameResult.classList.add('hidden')
+    }
 }
 // Показать и скрытие карточек через 5 сек в начале игры
 export function int() {
@@ -258,9 +240,9 @@ export function int() {
 }
 let minutes = 0
 let seconds = 0
-const interval = 0
+let intervalId: NodeJS.Timeout
 function startTimer() {
-    const number: NodeJS.Timeout = setInterval(() => {
+    intervalId = setInterval(() => {
         const timerElement = document.getElementById('timer') as HTMLElement
         seconds++
         if (seconds >= 60) {
@@ -276,11 +258,9 @@ function startTimer() {
             timerElement.textContent = `${formattedMinutes}:${formattedSeconds}`
         }
     }, 1000)
-    console.log(number)
 }
 function stopTimer() {
-    clearInterval(interval)
+    clearInterval(intervalId)
     seconds = 0
     minutes = 0
 }
-//document.getElementById("timeData").textContent = "11.11";
