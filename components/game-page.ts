@@ -29,10 +29,14 @@ export function renderGame(isAct: boolean) {
           <div class="time" id="timer">00:00</div>
           </div>
           <div>
-              <button id="restart" class="play__button returnButton">Начать заново</button>
+              <button id="restart" class="play__button returnButton"  ${
+                  !isAct && 'disabled'
+              } >Начать заново
+              </button>
           </div>
       </div>
       <div class="playingFieldCards">
+
           ${isAct ? cardsHtml : cardsBackHtml}
       </div>
   </div>
@@ -52,72 +56,80 @@ export function renderGame(isAct: boolean) {
 
     const playingFieldCards = document.querySelectorAll('.playingFieldCard')
     let compareNameId: string[] = []
-    let compareId: string[] = []
-    playingFieldCards.forEach((playingFieldCard) => {
+    let indexOfCards: number[] = []
+    playingFieldCards.forEach((playingFieldCard, index) => {
         playingFieldCard.addEventListener('click', (event) => {
+            if (playingFieldCard.classList.contains('active')) {
+                return
+            }
+            playingFieldCard.classList.add('active')
             if (event.target instanceof HTMLElement) {
                 const nameId = event.target.dataset.name || ''
-                const id = event.target.id
+                // const id = event.target.id
+
                 playingFieldCard.setAttribute('src', `/cards/${nameId}.jpg`)
-                compareId.push(id)
+
+                // compareId.push(id)
                 compareNameId.push(nameId)
-                if (compareId.length === 2 && compareNameId.length === 2) {
-                    if (compareId[0] !== compareId[1]) {
-                        if (compareNameId[0] === compareNameId[1]) {
-                            score++
-                            step++
-                            compareId = []
-                            compareNameId = []
-                        } else {
-                            step++
-                            setTimeout(() => {
-                                playingFieldCards.forEach(
-                                    (playingFieldCard) => {
-                                        playingFieldCard.setAttribute(
-                                            'src',
-                                            '/cards/back.jpg',
-                                        )
-                                    },
-                                )
-                                console.log('Очистка')
-                            }, 500)
-                            compareId = []
-                            compareNameId = []
+                indexOfCards.push(index)
+
+                console.log(indexOfCards)
+
+                if (compareNameId.length <= 1) {
+                    return
+                }
+                if (compareNameId[0] !== compareNameId[1]) {
+                    step++
+                    setTimeout(() => {
+                        for (let i = 1; i <= 2; i++) {
+                            playingFieldCards[
+                                indexOfCards[indexOfCards.length - i]
+                            ].setAttribute('src', '/cards/back.jpg')
+                            playingFieldCards[
+                                indexOfCards[indexOfCards.length - i]
+                            ].classList.remove('active')
                         }
-                    } else if (compareId[0] === compareId[1]) {
-                        compareNameId.shift()
-                        compareId.shift()
+                        indexOfCards = []
+                        compareNameId = []
+                        console.log('Очистка')
+                    }, 500)
+                }
+                if (compareNameId[0] === compareNameId[1]) {
+                    score++
+                    step++
+                    compareNameId = []
+                    indexOfCards = []
+                }
+
+                console.log('Счет :', score, 'Ход :', step)
+                if (userSettings.difficulty === 'easy') {
+                    if (step === 5 || score === 3) {
+                        if (score === 3) {
+                            showWin()
+                            stopTimer()
+                        } else if (score <= 3) {
+                            stopTimer()
+                            showLose()
+                        }
                     }
-                    console.log('Счет :', score, 'Ход :', step)
-                    if (userSettings.difficulty === 'easy') {
-                        if (step === 5 || score === 3) {
-                            if (score === 3) {
-                                showWin()
-                                stopTimer()
-                            } else if (score <= 3) {
-                                stopTimer()
-                                showLose()
-                            }
+                } else if (userSettings.difficulty === 'medium') {
+                    if (step === 8 || score === 6) {
+                        if (score === 6) {
+                            showWin()
+                            stopTimer()
+                        } else {
+                            showLose()
+                            stopTimer()
                         }
-                    } else if (userSettings.difficulty === 'medium') {
-                        if (step === 8 || score === 6) {
-                            if (score === 6) {
-                                showWin()
-                                stopTimer()
-                            } else {
-                                showLose()
-                                stopTimer()
-                            }
-                        }
-                    } else if (userSettings.difficulty === 'hard') {
-                        if (step === 9 || score === 9) {
-                            if (score === 9) {
-                                showWin()
-                                stopTimer()
-                            } else {
-                                showLose()
-                                stopTimer()
-                            }
+                    }
+                } else if (userSettings.difficulty === 'hard') {
+                    if (step === 9 || score === 9) {
+                        if (score === 9) {
+                            showWin()
+                            stopTimer()
+                        } else {
+                            showLose()
+                            stopTimer()
                         }
                     }
                 }
@@ -214,7 +226,9 @@ export function showLose() {
 
 export function hidegameResult() {
     const hidegameResult = document.getElementById('gameResult') as HTMLElement
-    hidegameResult.classList.add('hidden')
+    if (hidegameResult) {
+        hidegameResult.classList.add('hidden')
+    }
 }
 // Показать и скрытие карточек через 5 сек в начале игры
 export function int() {

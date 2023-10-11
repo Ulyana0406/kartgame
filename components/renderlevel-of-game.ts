@@ -1,5 +1,5 @@
 import { hideFirstPage } from './game-page'
-let arr: string[] = [
+const arr: string[] = [
     'AceSpades',
     'KingSpades',
     'QueenSpades',
@@ -37,6 +37,15 @@ let arr: string[] = [
     '7Clubs',
     '6Clubs',
 ]
+function shuffle(array: string[]) {
+    const newArr = [...array]
+    for (let i = newArr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1))
+        ;[newArr[i], newArr[j]] = [newArr[j], newArr[i]]
+    }
+    return newArr
+}
+
 export let arr2: string[] = []
 let step = 0
 let score = 0
@@ -59,15 +68,16 @@ export function renderLevel(difficulty: string) {
         hideFirstPage()
     }
     console.log('Кол-во карт :', numCards)
-
-    arr.sort(() => Math.random() - 0.5)
-    arr = arr.slice(0, numCards)
-    arr.forEach((el) => arr.push(el))
-    arr.sort(() => Math.random() - 0.5)
-    arr2 = arr.map((element) => {
-        return element
-    })
-    console.log('массив пар', arr2)
+    const randomCards: string[] = []
+    while (randomCards.length < numCards) {
+        const randomIndex = Math.floor(Math.random() * arr.length)
+        const randomItem = arr[randomIndex]
+        if (!randomCards.includes(randomItem)) {
+            randomCards.push(randomItem)
+        }
+    }
+    const newArr = randomCards.concat(randomCards)
+    arr2 = shuffle(newArr)
 }
 console.log('Счет :', score)
 console.log('Шаг:', step)
